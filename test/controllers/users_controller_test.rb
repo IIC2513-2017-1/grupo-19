@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @base_title = "Ruffle-Mania"
+    @base_title = "Raffle-Mania"
   end
 
   test "should get signup" do
