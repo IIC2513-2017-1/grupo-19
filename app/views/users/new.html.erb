@@ -1,39 +1,23 @@
 <% provide(:title, "Sign up") %>
 <h1>Sign up</h1>
 
-<div class="row">
+<div class="">
   <div class="">
     <%= form_for(@user) do |f| %>
-      <p>
-        <%= render 'shared/error_messages' %>
-      </p>
-      <p>
-        <%= f.label :name, class: 'form-control' %>
-      </p>
-      <p>
-        <%= f.text_field :name %>
-      </p>
-      <p>
-        <%= f.label :email %>
-      </p>
-      <p>
-        <%= f.text_field :email, class: 'form-control' %>
-      </p>
-      <p>
-        <%= f.label :password %>
-      </p>
-      <p>
-        <%= f.password_field :password, class: 'form-control' %>
-      </p>
-      <p>
-        <%= f.label :password_confirmation, "Confirmation" %>
-      </p>
-      <p>
-        <%= f.password_field :password_confirmation, class: 'form-control' %>
-      </p>
-      <p>
-        <%= f.submit "Create my account", class:"" %>
-      </p>
+      <p><%= render 'shared/error_messages' %></p>
+
+      <li><%= f.label :name, class: 'form-control' %></li>
+      <li><%= f.text_field :name %></li>
+
+      <li><%= f.label :email %></li>
+      <li><%= f.text_field :email, class: 'form-control' %></li>
+
+      <li><%= f.label :password %></li>
+      <li><%= f.password_field :password, class: 'form-control' %></li>
+
+      <li><%= f.label :password_confirmation, "Confirmation" %></li>
+      <li><%= f.password_field :password_confirmation, class: 'form-control' %></li>
+      <li><%= f.submit "Create my account", class:"" %></li>
     <% end %>
   </div>
 </div>
