@@ -5,6 +5,8 @@
 <table>
   <thead>
     <tr>
+      <th>User id</th>
+      <th>Raffle id</th>
       <th>Content</th>
       <th colspan="3"></th>
     </tr>
@@ -13,6 +15,8 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
+        <td><%= comment.user_id %></td>
+        <td><%= comment.raffle_id %></td>
         <td><%= comment.content %></td>
         <td><%= link_to 'Show', comment %></td>
         <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
