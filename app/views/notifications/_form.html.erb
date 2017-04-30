@@ -12,8 +12,23 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :user_id %>
+    <%= f.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :raffle_id %>
+    <%= f.number_field :raffle_id %>
+  </div>
+
+  <div class="field">
     <%= f.label :content %>
     <%= f.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seen %>
+    <%= f.check_box :seen %>
   </div>
 
   <div class="actions">

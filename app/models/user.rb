@@ -8,7 +8,7 @@ class User < ApplicationRecord
                            class_name: 'Message'
   has_many :messages_received, foreign_key: 'recipient_id',
                                class_name: 'Message'
-  has_many :active_notifications, class_name: "Notification"
+  has_many :notifications
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
                                   dependent: :destroy

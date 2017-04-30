@@ -1,8 +1,25 @@
 <p id="notice"><%= notice %></p>
 
+
+<p>
+  <strong>User Id:</strong>
+  <%= @notification.user_id %>
+</p>
+
+
+<p>
+  <strong>Raffle Id:</strong>
+  <%= @notification.raffle_id %>
+</p>
+
 <p>
   <strong>Content:</strong>
   <%= @notification.content %>
+</p>
+
+<p>
+  <strong>Seen:</strong>
+  <%= @notification.seen %>
 </p>
 
 <%= link_to 'Edit', edit_notification_path(@notification) %> |

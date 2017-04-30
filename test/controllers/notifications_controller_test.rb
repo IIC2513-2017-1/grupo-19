@@ -3,6 +3,8 @@ require 'test_helper'
 class NotificationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @notification = notifications(:one)
+    @user = users(:oscar)
+    @raffle = raffles(:one)
   end
 
   test "should get index" do
@@ -17,7 +19,10 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create notification" do
     assert_difference('Notification.count') do
-      post notifications_url, params: { notification: { content: @notification.content } }
+      post notifications_url, params: { notification: { content: @notification.content,
+                                                        seen: @notification.seen,
+                                                        user_id: @user.id,
+                                                        raffle_id: @raffle.id } }
     end
 
     assert_redirected_to notification_url(Notification.last)
@@ -34,7 +39,10 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update notification" do
-    patch notification_url(@notification), params: { notification: { content: @notification.content } }
+    patch notification_url(@notification), params: { notification: { content: @notification.content,
+                                                      seen: @notification.seen,
+                                                      user_id: @user.id,
+                                                      raffle_id: @raffle.id } }
     assert_redirected_to notification_url(@notification)
   end
 
