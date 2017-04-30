@@ -1,5 +1,5 @@
 class Number < ApplicationRecord
-  #belongs_to :raffle
-  #belongs_to :purchase
-  #belongs_to :winner
+  belongs_to :raffle
+  has_one :purchase
+  has_one :winner
 end
