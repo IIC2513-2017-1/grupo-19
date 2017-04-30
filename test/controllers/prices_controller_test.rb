@@ -3,14 +3,6 @@ require 'test_helper'
 class PricesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @price = prices(:one)
-    @price_category = price_categories(:one)
-    @raffle_category = raffle_categories(:one)
-    @user = users(:oscar)
-    @raffle = raffles(:one)
-    @raffle[:user_id] = @user.id
-    @raffle[:raffle_category_id] = @raffle_category.id
-    @price[:raffle_id] = @raffle.id
-    @price[:price_category_id] = @price_category.id
   end
 
   test "should get index" do
