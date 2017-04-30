@@ -2,7 +2,16 @@ require 'test_helper'
 
 class PricesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @raffle = raffles(:one)
+    @raffle_category = raffle_categories(:one)
+    @user = users(:oscar)
+    @raffle[:raffle_category_id] = @raffle_category.id
+    @raffle[:user_id] = @user.id
+    @price_category = price_categories(:one)
+    
     @price = prices(:one)
+    @price[:price_category_id] = @price_category.id
+    @price[:raffle_id] = @raffle.id
   end
 
   test "should get index" do
@@ -17,12 +26,11 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create price" do
     assert_difference('Price.count') do
-      post prices_url, params: { price: { description: @price.description,
-                                          name: @price.name,
-                                          raffle_id: @price.raffle_id,
-                                          price_category_id: @price.price_category_id } }
+      post prices_url, params: { price: { name: @price.name,
+                                          description: @price.description,
+                                          raffle_id: @raffle.id,
+                                          price_category_id: @price_category.id } }
     end
-
     assert_redirected_to price_url(Price.last)
   end
 
@@ -37,10 +45,10 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update price" do
-    patch price_url(@price), params: { price: { description: @price.description,
-                                                name: @price.name,
-                                                raffle_id: @price.raffle_id,
-                                                price_category_id: @price.price_category_id } }
+    patch price_url(@price), params: { price: { name: @price.name,
+                                                description: @price.description,
+                                                raffle_id: @raffle.id,
+                                                price_category_id: @price_category.id } }
     assert_redirected_to price_url(@price)
   end
 

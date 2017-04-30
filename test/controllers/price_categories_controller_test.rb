@@ -17,7 +17,8 @@ class PriceCategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create price_category" do
     assert_difference('PriceCategory.count') do
-      post price_categories_url, params: { price_category: { description: @price_category.description, name: @price_category.name } }
+      post price_categories_url, params: { price_category: { description: @price_category.description, 
+                                                             name: @price_category.name } }
     end
 
     assert_redirected_to price_category_url(PriceCategory.last)
