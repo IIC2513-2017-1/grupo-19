@@ -3,6 +3,14 @@ require 'test_helper'
 class PricesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @price = prices(:one)
+    @price_category = price_categories(:one)
+    @raffle_category = raffle_categories(:one)
+    @user = users(:oscar)
+    @raffle = raffles(:one)
+    @raffle[:user_id] = @user.id
+    @raffle[:raffle_category_id] = @raffle_category.id
+    @price[:raffle_id] = @raffle.id
+    @price[:price_category_id] = @price_category.id
   end
 
   test "should get index" do
@@ -17,7 +25,10 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create price" do
     assert_difference('Price.count') do
-      post prices_url, params: { price: { description: @price.description, name: @price.name, raffle_id: @price.raffle_id } }
+      post prices_url, params: { price: { description: @price.description,
+                                          name: @price.name,
+                                          raffle_id: @price.raffle_id,
+                                          price_category_id: @price.price_category_id } }
     end
 
     assert_redirected_to price_url(Price.last)
@@ -34,7 +45,10 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update price" do
-    patch price_url(@price), params: { price: { description: @price.description, name: @price.name, raffle_id: @price.raffle_id } }
+    patch price_url(@price), params: { price: { description: @price.description,
+                                                name: @price.name,
+                                                raffle_id: @price.raffle_id,
+                                                price_category_id: @price.price_category_id } }
     assert_redirected_to price_url(@price)
   end
 

@@ -3,6 +3,10 @@ require 'test_helper'
 class PurchasesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @purchase = purchases(:one)
+    @number = numbers(:one)
+    @user = users(:oscar)
+    @purchase[:number_id] = @number.id
+    @purchase[:user_id] = @user.id
   end
 
   test "should get index" do
@@ -17,9 +21,9 @@ class PurchasesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create purchase" do
     assert_difference('Purchase.count') do
-      post purchases_url, params: { purchase: { number_id: @purchase.number_id, user_id: @purchase.user_id } }
+      post purchases_url, params: { purchase: { number_id: @purchase.number_id,
+                                                user_id: @purchase.user_id } }
     end
-
     assert_redirected_to purchase_url(Purchase.last)
   end
 

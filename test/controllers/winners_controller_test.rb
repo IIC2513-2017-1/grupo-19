@@ -3,6 +3,10 @@ require 'test_helper'
 class WinnersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @winner = winners(:one)
+    @number = numbers(:one)
+    @price = prices(:one)
+    @winner[:number_id] = @number.id
+    @winner[:price_id] = @price.id
   end
 
   test "should get index" do

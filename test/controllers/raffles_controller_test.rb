@@ -3,6 +3,10 @@ require 'test_helper'
 class RafflesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @raffle = raffles(:one)
+    @raffle_category = raffle_categories(:one)
+    @user = users(:oscar)
+    @raffle[:raffle_category_id] = @raffle_category.id
+    @raffle[:user_id] = @user.id
   end
 
   test "should get index" do
@@ -17,7 +21,13 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create raffle" do
     assert_difference('Raffle.count') do
-      post raffles_url, params: { raffle: { collected_money: @raffle.collected_money, description: @raffle.description, final_date: @raffle.final_date, name: @raffle.name, price: @raffle.price, raffle_category_id: @raffle.raffle_category_id, user_id: @raffle.user_id } }
+      post raffles_url, params: { raffle: { collected_money: @raffle.collected_money,
+                                            description: @raffle.description,
+                                            final_date: @raffle.final_date,
+                                            name: @raffle.name,
+                                            price: @raffle.price,
+                                            raffle_category_id: @raffle.raffle_category_id,
+                                            user_id: @raffle.user_id } }
     end
 
     assert_redirected_to raffle_url(Raffle.last)
@@ -34,7 +44,13 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update raffle" do
-    patch raffle_url(@raffle), params: { raffle: { collected_money: @raffle.collected_money, description: @raffle.description, final_date: @raffle.final_date, name: @raffle.name, price: @raffle.price, raffle_category_id: @raffle.raffle_category_id, user_id: @raffle.user_id } }
+    patch raffle_url(@raffle), params: { raffle: { collected_money: @raffle.collected_money,
+                                                   description: @raffle.description,
+                                                   final_date: @raffle.final_date,
+                                                   name: @raffle.name,
+                                                   price: @raffle.price,
+                                                   raffle_category_id: @raffle.raffle_category_id,
+                                                   user_id: @raffle.user_id } }
     assert_redirected_to raffle_url(@raffle)
   end
 
