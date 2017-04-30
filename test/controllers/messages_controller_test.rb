@@ -3,6 +3,8 @@ require 'test_helper'
 class MessagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @message = messages(:one)
+    @user = users(:oscar)
+    @another_user = users(:archer)
   end
 
   test "should get index" do
@@ -17,7 +19,10 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create message" do
     assert_difference('Message.count') do
-      post messages_url, params: { message: { content: @message.content, subject: @message.subject } }
+      post messages_url, params: { message: { content: @message.content,
+                                              subject: @message.subject,
+                                              sender_id: @another_user.id,
+                                              recipient_id: @user.id } }
     end
 
     assert_redirected_to message_url(Message.last)
@@ -34,7 +39,10 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update message" do
-    patch message_url(@message), params: { message: { content: @message.content, subject: @message.subject } }
+    patch message_url(@message), params: { message: { content: @message.content,
+                                                      subject: @message.subject,
+                                                      sender_id: @another_user.id,
+                                                      recipient_id: @user.id } }
     assert_redirected_to message_url(@message)
   end
 

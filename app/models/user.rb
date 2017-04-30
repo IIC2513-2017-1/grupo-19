@@ -1,8 +1,13 @@
 class User < ApplicationRecord
   # Relationships
   has_many :purchases
-  has_many :organized_raffles, class_name: "Raffle"
+  has_many :organized_raffles, foreign_key: 'raffle_id',
+                               class_name: "Raffle"
   has_many :comments
+  has_many :messages_sent, foreign_key: 'sender_id',
+                           class_name: 'Message'
+  has_many :messages_received, foreign_key: 'recipient_id',
+                               class_name: 'Message'
   has_many :active_notifications, class_name: "Notification"
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
