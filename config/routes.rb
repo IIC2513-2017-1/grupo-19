@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :prices
+  resources :price_categories
   resources :raffles
   resources :raffle_categories
   root   'static_pages#home'
