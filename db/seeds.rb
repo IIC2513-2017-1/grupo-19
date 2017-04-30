@@ -21,3 +21,10 @@ User.create!(name: "Usuario Administrador",
                password: password,
                password_confirmation: password)
 end
+
+6.times do |n|
+  name = Faker::Hipster.unique.word
+  description = Faker::Hipster.sentence
+  RaffleCategory.create!(name: name,
+                         description: description)
+end

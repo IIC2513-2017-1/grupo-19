@@ -1,0 +1,2 @@
+module RaffleCategoriesHelper
+end

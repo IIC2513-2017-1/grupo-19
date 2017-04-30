@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @raffle.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @raffle.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @raffle.price %>
+</p>
+
+<p>
+  <strong>Final date:</strong>
+  <%= @raffle.final_date %>
+</p>
+
+<p>
+  <strong>Collected money:</strong>
+  <%= @raffle.collected_money %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @raffle.user_id %>
+</p>
+
+<p>
+  <strong>Raffle category:</strong>
+  <%= @raffle.raffle_category_id %>
+</p>
+
+<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+<%= link_to 'Back', raffles_path %>

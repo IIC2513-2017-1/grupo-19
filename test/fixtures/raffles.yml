@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  price: 1
+  final_date: 2017-04-30 05:48:01
+  collected_money: 1
+  user_id: 1
+  raffle_category_id: 1
+
+two:
+  name: MyString
+  description: MyText
+  price: 1
+  final_date: 2017-04-30 05:48:01
+  collected_money: 1
+  user_id: 1
+  raffle_category_id: 1

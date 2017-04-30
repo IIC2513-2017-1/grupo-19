@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :raffles
+  resources :raffle_categories
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
