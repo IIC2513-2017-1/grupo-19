@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430085901) do
+ActiveRecord::Schema.define(version: 20170430093849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "numbers", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "raffle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "price_categories", force: :cascade do |t|
     t.string   "name"
@@ -29,6 +36,13 @@ ActiveRecord::Schema.define(version: 20170430085901) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "price_category_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "number_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "raffle_categories", force: :cascade do |t|
@@ -58,6 +72,13 @@ ActiveRecord::Schema.define(version: 20170430085901) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+  end
+
+  create_table "winners", force: :cascade do |t|
+    t.integer  "number_id"
+    t.integer  "price_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

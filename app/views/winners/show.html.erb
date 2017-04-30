@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @winner.number_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @winner.price_id %>
+</p>
+
+<%= link_to 'Edit', edit_winner_path(@winner) %> |
+<%= link_to 'Back', winners_path %>

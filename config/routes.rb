@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :winners
+  resources :purchases
+  resources :numbers
   resources :prices
   resources :price_categories
   resources :raffles
