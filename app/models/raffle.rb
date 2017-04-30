@@ -3,4 +3,6 @@ class Raffle < ApplicationRecord
   belongs_to :raffle_category
   has_many :prices
   has_many :numbers
+  has_many :comments
+  has_many :notifications
 end

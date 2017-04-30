@@ -1,5 +1,13 @@
 class User < ApplicationRecord
   has_many :purchases
+  has_many :organized_raffles, class_name: "Raffle"
+  has_many :publications, class_name: "Comment"
+  has_many :active_notifications, class_name: "Notification"
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+
+
   before_save { email.downcase! }
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -15,4 +23,5 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
+
 end

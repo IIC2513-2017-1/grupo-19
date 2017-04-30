@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :notifications
+  resources :comments
+  resources :messages
   resources :winners
   resources :purchases
   resources :numbers
