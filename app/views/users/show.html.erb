@@ -4,8 +4,10 @@
     <section class = "user_info">
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        <%= @user.name %> ,
+        <%= @user.email %>
       </h1>
+      <h4><%= link_to "Edit your profile", edit_user_path(current_user) %></h4>
     </section>
   </aside>
 </div>
