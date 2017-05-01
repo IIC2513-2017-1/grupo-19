@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20170430233347) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
     t.text     "content"
-    t.boolean  "seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "raffle_id"
+    t.integer  "user_id"
+    t.boolean  "seen"
   end
 
   create_table "numbers", force: :cascade do |t|
