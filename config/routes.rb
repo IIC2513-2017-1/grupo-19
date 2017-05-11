@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :prizes
+  resources :prize_categories
   resources :notifications
   resources :comments
   resources :messages
   resources :winners
   resources :purchases
   resources :numbers
-  resources :prices
-  resources :price_categories
   resources :raffles
   resources :raffle_categories
   root   'static_pages#home'

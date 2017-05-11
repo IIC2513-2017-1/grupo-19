@@ -13,7 +13,7 @@ User.create!(name: "Usuario Administrador",
              admin: true)
 
 20.times do |n|
-  name = Faker::Name.name
+  name = Faker::StarWars.character
   email = Faker::Internet.unique.email
   password = "password"
   User.create!(name: name,
