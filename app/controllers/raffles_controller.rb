@@ -1,10 +1,13 @@
 class RafflesController < ApplicationController
   before_action :set_raffle, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: [:destroy]
 
   # GET /raffles
   # GET /raffles.json
   def index
-    @raffles = Raffle.all
+    @raffles = Raffle.paginate(page:params[:page], :per_page =>10)
   end
 
   # GET /raffles/1
@@ -25,7 +28,6 @@ class RafflesController < ApplicationController
   # POST /raffles.json
   def create
     @raffle = Raffle.new(raffle_params)
-
     respond_to do |format|
       if @raffle.save
         format.html { redirect_to @raffle, notice: 'Raffle was successfully created.' }
@@ -69,6 +71,6 @@ class RafflesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def raffle_params
-      params.require(:raffle).permit(:name, :description, :price, :final_date, :collected_money, :user_id, :raffle_category_id)
+      params.require(:raffle).permit(:name, :description, :price, :final_date, :raffle_category_id).merge(user_id: current_user.id)
     end
 end
