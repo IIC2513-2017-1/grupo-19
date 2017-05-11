@@ -7,7 +7,9 @@
         <%= @user.name %> ,
         <%= @user.email %>
       </h1>
-      <h4><%= link_to "Edit your profile", edit_user_path(current_user) %></h4>
+        <% if current_user? @user %>
+          <h4><%= link_to "Edit your profile", edit_user_path(current_user) %></h4>
+        <% end %>
     </section>
   </aside>
 </div>
