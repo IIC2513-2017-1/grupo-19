@@ -1,7 +1,7 @@
 class RafflesController < ApplicationController
   before_action :set_raffle, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :creator_user, only: [:edit, :update, :destroy]
   before_action :admin_user, only: [:destroy]
 
   # GET /raffles
@@ -71,6 +71,15 @@ class RafflesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def raffle_params
-      params.require(:raffle).permit(:name, :description, :price, :final_date, :raffle_category_id).merge(user_id: current_user.id)
+      params.require(:raffle).permit(:name,
+                                     :description,
+                                     :price,
+                                     :final_date,
+                                     :raffle_category_id).merge(user_id: current_user.id)
+    end
+
+    def creator_user
+      @user = User.find_by(id: @raffle.user_id)
+      redirect_to(root_url) unless current_user?(@user)
     end
 end

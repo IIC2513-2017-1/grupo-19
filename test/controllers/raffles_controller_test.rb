@@ -15,19 +15,20 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    log_in_as(@user)
     get new_raffle_url
     assert_response :success
   end
 
   test "should create raffle" do
+    log_in_as(@user)
     assert_difference('Raffle.count') do
-      post raffles_url, params: { raffle: { collected_money: @raffle.collected_money,
-                                            description: @raffle.description,
+      post raffles_url, params: { raffle: { description: @raffle.description,
                                             final_date: @raffle.final_date,
                                             name: @raffle.name,
                                             price: @raffle.price,
-                                            raffle_category_id: @raffle.raffle_category_id,
-                                            user_id: @raffle.user_id } }
+                                            raffle_category_id: @raffle_category.id,
+                                            user_id: @user.id } }
     end
 
     assert_redirected_to raffle_url(Raffle.last)
@@ -39,22 +40,23 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
+    log_in_as(@user)
     get edit_raffle_url(@raffle)
     assert_response :success
   end
 
   test "should update raffle" do
-    patch raffle_url(@raffle), params: { raffle: { collected_money: @raffle.collected_money,
-                                                   description: @raffle.description,
+    log_in_as(@user)
+    patch raffle_url(@raffle), params: { raffle: { description: @raffle.description,
                                                    final_date: @raffle.final_date,
                                                    name: @raffle.name,
                                                    price: @raffle.price,
-                                                   raffle_category_id: @raffle.raffle_category_id,
-                                                   user_id: @raffle.user_id } }
+                                                   raffle_category_id: @raffle.raffle_category_id} }
     assert_redirected_to raffle_url(@raffle)
   end
 
   test "should destroy raffle" do
+    log_in_as(@user)
     assert_difference('Raffle.count', -1) do
       delete raffle_url(@raffle)
     end
