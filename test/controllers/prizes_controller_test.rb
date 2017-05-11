@@ -3,6 +3,8 @@ require 'test_helper'
 class PrizesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @prize = prizes(:one)
+    @raffle = raffles(:one)
+    @prize_category = prize_categories(:one)
   end
 
   test "should get index" do
@@ -17,7 +19,10 @@ class PrizesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create prize" do
     assert_difference('Prize.count') do
-      post prizes_url, params: { prize: { description: @prize.description, name: @prize.name, prize_category_id: @prize.prize_category_id, raffle_id: @prize.raffle_id } }
+      post prizes_url, params: { prize: { description: @prize.description,
+                                          name: @prize.name,
+                                          prize_category_id: @prize_category.id,
+                                          raffle_id: @raffle.id } }
     end
 
     assert_redirected_to prize_url(Prize.last)
@@ -34,7 +39,10 @@ class PrizesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update prize" do
-    patch prize_url(@prize), params: { prize: { description: @prize.description, name: @prize.name, prize_category_id: @prize.prize_category_id, raffle_id: @prize.raffle_id } }
+    patch prize_url(@prize), params: { prize: { description: @prize.description,
+                                                name: @prize.name,
+                                                prize_category_id: @prize_category.id,
+                                                raffle_id: @raffle.id } }
     assert_redirected_to prize_url(@prize)
   end
 

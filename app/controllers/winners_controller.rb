@@ -69,6 +69,6 @@ class WinnersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def winner_params
-      params.require(:winner).permit(:number_id, :price_id)
+      params.require(:winner).permit(:number_id, :prize_id)
     end
 end

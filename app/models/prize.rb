@@ -1,4 +1,4 @@
 class Prize < ApplicationRecord
-  belongs_to: :prize_catefory
-  belongs_to: :raffle
+  belongs_to :prize_category
+  belongs_to :raffle
 end

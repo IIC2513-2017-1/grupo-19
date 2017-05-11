@@ -1,4 +1,4 @@
 class Winner < ApplicationRecord
   belongs_to :number
-  belongs_to :price
+  belongs_to :prize
 end

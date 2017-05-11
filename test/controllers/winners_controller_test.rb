@@ -4,9 +4,9 @@ class WinnersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @winner = winners(:one)
     @number = numbers(:one)
-    @price = prices(:one)
+    @prize = prizes(:one)
     @winner[:number_id] = @number.id
-    @winner[:price_id] = @price.id
+    @winner[:prize_id] = @prize.id
   end
 
   test "should get index" do
@@ -21,7 +21,8 @@ class WinnersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create winner" do
     assert_difference('Winner.count') do
-      post winners_url, params: { winner: { number_id: @winner.number_id, price_id: @winner.price_id } }
+      post winners_url, params: { winner: { number_id: @winner.number_id,
+                                            prize_id: @winner.prize_id } }
     end
 
     assert_redirected_to winner_url(Winner.last)
@@ -38,7 +39,8 @@ class WinnersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update winner" do
-    patch winner_url(@winner), params: { winner: { number_id: @winner.number_id, price_id: @winner.price_id } }
+    patch winner_url(@winner), params: { winner: { number_id: @winner.number_id,
+                                                    prize_id: @winner.prize_id } }
     assert_redirected_to winner_url(@winner)
   end
 

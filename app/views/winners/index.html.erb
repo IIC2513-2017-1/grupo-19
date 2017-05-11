@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Number</th>
-      <th>Price</th>
+      <th>prize</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
     <% @winners.each do |winner| %>
       <tr>
         <td><%= winner.number_id %></td>
-        <td><%= winner.price_id %></td>
+        <td><%= winner.prize_id %></td>
         <td><%= link_to 'Show', winner %></td>
         <td><%= link_to 'Edit', edit_winner_path(winner) %></td>
         <td><%= link_to 'Destroy', winner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
