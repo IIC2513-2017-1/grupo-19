@@ -1,6 +1,8 @@
 class RafflesController < ApplicationController
   before_action :set_raffle, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:edit, :new, :create, :update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: [:destroy]
 
   # GET /raffles
   # GET /raffles.json
