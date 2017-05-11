@@ -6,4 +6,7 @@ class Message < ApplicationRecord
                                class_name: 'MessageResponse'
   has_one :message_responded, foreign_key: 'message_responses_id',
                                class_name: 'MessageResponse'
+
+  validates :content, length: {maximum: 1024}, allow_blank: false
+  validates :subject, length: {maximum: 64}
 end

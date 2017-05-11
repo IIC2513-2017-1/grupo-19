@@ -6,9 +6,9 @@ class Raffle < ApplicationRecord
   has_many :winners
   has_many :comments
   has_many :notifications
-
+  
   validates :name, presence: true,
-                   length: { maximum: 25,
+                   length: { maximum: 127,
                              minimum: 5},
                    uniqueness: {case_sensitive: false}
   validates :description, presence: true,
@@ -24,5 +24,4 @@ class Raffle < ApplicationRecord
       errors.add(:final_date, "can't be in the past")
     end
   end
-
 end

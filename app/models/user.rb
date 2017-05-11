@@ -27,6 +27,10 @@ class User < ApplicationRecord
   validates :name, presence: true,
                    length: { maximum: 50 }
 
+  has_many :followings_users, class_name: "User", through: "following_relationships"
+  has_many :follower_users, class_name: "User", through: "following_relationships"
+
+  
   before_save { email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
