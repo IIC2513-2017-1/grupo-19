@@ -7,6 +7,7 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
     @user = users(:oscar)
     @raffle[:raffle_category_id] = @raffle_category.id
     @raffle[:user_id] = @user.id
+    log_in_as(@user)
   end
 
   test "should get index" do
@@ -15,17 +16,15 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    log_in_as(@user)
     get new_raffle_url
     assert_response :success
   end
 
   test "should create raffle" do
-    log_in_as(@user)
     assert_difference('Raffle.count') do
       post raffles_url, params: { raffle: { description: @raffle.description,
                                             final_date: @raffle.final_date,
-                                            name: @raffle.name,
+                                            name: "Something wierd",
                                             price: @raffle.price,
                                             raffle_category_id: @raffle_category.id,
                                             user_id: @user.id } }
@@ -40,16 +39,14 @@ class RafflesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    log_in_as(@user)
     get edit_raffle_url(@raffle)
     assert_response :success
   end
 
   test "should update raffle" do
-    log_in_as(@user)
     patch raffle_url(@raffle), params: { raffle: { description: @raffle.description,
                                                    final_date: @raffle.final_date,
-                                                   name: @raffle.name,
+                                                   name: "Something wierd",
                                                    price: @raffle.price,
                                                    raffle_category_id: @raffle.raffle_category_id} }
     assert_redirected_to raffle_url(@raffle)
