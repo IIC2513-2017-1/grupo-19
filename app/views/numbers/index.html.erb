@@ -14,7 +14,7 @@
   <tbody>
     <% @numbers.each do |number| %>
       <tr>
-        <td><%= number.number %></td>
+        <td><%= number.id %></td>
         <td><%= number.raffle_id %></td>
         <td><%= link_to 'Show', number %></td>
         <td><%= link_to 'Edit', edit_number_path(number) %></td>

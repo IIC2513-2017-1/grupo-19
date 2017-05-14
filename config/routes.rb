@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   resources :winners
   resources :purchases
   resources :numbers
-  resources :raffles
+  resources :raffles do
+  end
   resources :raffle_categories
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'

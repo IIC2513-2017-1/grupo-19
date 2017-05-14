@@ -15,6 +15,16 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  # Returns true if the current_user created the raffle
+  def creator_user?(raffle)
+    current_user == creator_user(raffle)
+  end
+
+  # Returns the user that created the raffle
+  def creator_user(raffle)
+    User.find_by(id: raffle.user_id)
+  end
+
   # Returns true if the user is logged in, false otherwise
   def logged_in?
     !current_user.nil?

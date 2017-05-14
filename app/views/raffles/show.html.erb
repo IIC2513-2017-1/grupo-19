@@ -35,5 +35,9 @@
   <%= @raffle.raffle_category_id %>
 </p>
 
-<%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+<% if creator_user?(@raffle) %>
+  <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+<% else %>
+  <%= link_to 'Buy a number', new_number_path(@raffle) %> |
+<% end %>
 <%= link_to 'Back', raffles_path %>
