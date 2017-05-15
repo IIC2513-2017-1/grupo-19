@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 20170515043520) do
   end
 
   create_table "numbers", force: :cascade do |t|
-    t.integer  "number"
     t.integer  "raffle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "prize_categories", force: :cascade do |t|

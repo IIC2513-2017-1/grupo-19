@@ -69,6 +69,6 @@ class NumbersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def number_params
-      params.require(:number).permit(:number, :raffle_id)
+      params.require(:number).permit(:number, :raffle_id).merge(user_id: current_user.id)
     end
 end
