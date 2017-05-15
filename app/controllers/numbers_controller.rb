@@ -1,5 +1,7 @@
 class NumbersController < ApplicationController
-  before_action :set_number, only: [:show, :edit, :update, :destroy]
+  before_action :set_number, only: [:destroy]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :owner_user, only: [:destroy]
 
   # GET /numbers
   # GET /numbers.json
@@ -7,18 +9,9 @@ class NumbersController < ApplicationController
     @numbers = Number.all
   end
 
-  # GET /numbers/1
-  # GET /numbers/1.json
-  def show
-  end
-
   # GET /numbers/new
   def new
     @number = Number.new
-  end
-
-  # GET /numbers/1/edit
-  def edit
   end
 
   # POST /numbers
@@ -28,24 +21,10 @@ class NumbersController < ApplicationController
 
     respond_to do |format|
       if @number.save
-        format.html { redirect_to @number, notice: 'Number was successfully created.' }
-        format.json { render :show, status: :created, location: @number }
+        format.html { redirect_to numbers_url, notice: 'Number was successfully created.' }
+        format.json { render :index, status: :created, location: @number }
       else
         format.html { render :new }
-        format.json { render json: @number.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /numbers/1
-  # PATCH/PUT /numbers/1.json
-  def update
-    respond_to do |format|
-      if @number.update(number_params)
-        format.html { redirect_to @number, notice: 'Number was successfully updated.' }
-        format.json { render :show, status: :ok, location: @number }
-      else
-        format.html { render :edit }
         format.json { render json: @number.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +48,11 @@ class NumbersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def number_params
-      params.require(:number).permit(:number, :raffle_id).merge(user_id: current_user.id)
+      params.require(:number).permit(:raffle_id).merge(user_id: current_user.id)
+    end
+
+    def owner_user
+      @user = User.find_by(id: @number.user_id)
+      redirect_to(root_url) unless current_user?(@user)
     end
 end

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :winners
   resources :purchases
-  resources :numbers
+  resources :numbers, only: [:index, :new, :create, :destroy]
   resources :raffles do
   end
   resources :raffle_categories
