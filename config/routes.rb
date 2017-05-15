@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :messages
   resources :winners
   resources :purchases
-  resources :numbers, only: [:index, :new, :create, :destroy]
   resources :raffles do
+    resources :numbers, only: [:index, :create, :destroy]
   end
   resources :raffle_categories
   root   'static_pages#home'

@@ -1,4 +1,6 @@
 class NumbersController < ApplicationController
+  before_action :set_raffle
+  before_action :set_empty_number, only: [:create]
   before_action :set_number, only: [:destroy]
   before_action :logged_in_user, only: [:new, :create, :destroy]
   before_action :owner_user, only: [:destroy]
@@ -6,22 +8,17 @@ class NumbersController < ApplicationController
   # GET /numbers
   # GET /numbers.json
   def index
-    @numbers = Number.all
-  end
-
-  # GET /numbers/new
-  def new
-    @number = Number.new
+    @numbers = Number.where("raffle_id = #{params[:raffle_id]}")
+    #@numbers = Number.find_by(raffle_id: params[:raffle_id])
   end
 
   # POST /numbers
   # POST /numbers.json
   def create
     @number = Number.new(number_params)
-
     respond_to do |format|
       if @number.save
-        format.html { redirect_to numbers_url, notice: 'Number was successfully created.' }
+        format.html { redirect_to raffle_numbers_url, notice: 'Number was successfully created.' }
         format.json { render :index, status: :created, location: @number }
       else
         format.html { render :new }
@@ -46,9 +43,21 @@ class NumbersController < ApplicationController
       @number = Number.find(params[:id])
     end
 
+    def set_empty_number
+      @number = Number.new
+    end
+
+    def set_raffle
+      @raffle = Raffle.find(params[:raffle_id])
+    end
+
+    def raffle_params
+      params.permit(:raffle_id)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def number_params
-      params.require(:number).permit(:raffle_id).merge(user_id: current_user.id)
+      params.permit(:raffle_id).merge(user_id: current_user.id)
     end
 
     def owner_user

@@ -18,7 +18,7 @@
         <td><%= number.id %></td>
         <td><%= number.raffle_id %></td>
         <td><%= number.user_id %></td>
-        <td><%= link_to 'Destroy', number, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', raffle_number_path(@raffle.id, number.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Number', new_number_path %>
+<%= link_to 'Buy a number', raffle_numbers_path(@raffle.id), method: :create, data: { confirm: 'Are you sure?'} %>
+ |
+<%= link_to 'Back', raffle_path(id: @raffle.id) %>
