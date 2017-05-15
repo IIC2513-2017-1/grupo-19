@@ -20,9 +20,9 @@ class User < ApplicationRecord
                                     dependent:   :destroy
 
   has_many :followers, through: :follower_relationships,
-                       source:  :follower
+                       source:  :follower_id
   has_many :followings, through: :following_relationships,
-                        source:  :following
+                        source:  :following_id
 
   validates :name, presence: true,
                    length: { maximum: 50 }
@@ -30,7 +30,7 @@ class User < ApplicationRecord
   has_many :followings_users, class_name: "User", through: "following_relationships"
   has_many :follower_users, class_name: "User", through: "following_relationships"
 
-  
+
   before_save { email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,

@@ -1,33 +1,33 @@
-<p id="notice"><%= notice %></p>
+<% if @over_ten %>
+ <%= link_to 'Show Previous', '?m=all' %>
+<% end %>
 
-<h1>Messages</h1>
+<div class="ui segment">
+ <% @messages.each do |message| %>
+  <% if message.content %>
+   <% user = User.find(message.user_id) %>
+   <div class="item">
+    <div class="content">
+     <div class="header"><strong><%= user.name %></strong>     <%= message.message_time %></div>
+      <div class="list">
+       <div class="item">
+        <i class="right triangle icon"></i>
+         <%= message.content %>
+      </div>
+    </div>
+   </div>
+ </div>
+ <% end %>
+<% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Sender Id</th>
-      <th>Recipient Id</th>
-      <th>Subject</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
+ <div class="field">
+   <%= f.text_area :content, class: "form-control" %>
+ </div>
+ <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+ <div>
+   <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
+ </div>
 
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.sender_id %></td>
-        <td><%= message.recipient_id %></td>
-        <td><%= message.subject %></td>
-        <td><%= message.content %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Message', new_message_path %>
+<% end %>
