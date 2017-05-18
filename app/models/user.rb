@@ -1,9 +1,7 @@
 class User < ApplicationRecord
   # Relationships
   has_many :purchases, dependent: :destroy
-  has_many :organized_raffles, foreign_key: 'raffle_id',
-                               class_name:  'Raffle',
-                               dependent: :destroy
+  has_many :raffles, dependent: :destroy
   has_many :comments
 
   has_many :messages_sent, foreign_key: 'sender_id',

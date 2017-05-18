@@ -79,7 +79,8 @@ class RafflesController < ApplicationController
     end
 
     def creator_user
-      @user = User.find_by(id: @raffle.user_id)
+      #@user = User.find_by(id: @raffle.user_id)
+      @user = @raffle.user
       redirect_to(root_url) unless current_user?(@user)
     end
 end
