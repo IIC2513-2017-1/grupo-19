@@ -5,6 +5,29 @@
     IIC2513-2017-1
     Project, Group 19
   </h2>
+  <div class="categories_displayer">
+    <h3>Raffle categories</h3>
+    <div id= "raffle_categories">
+    <ul>
+      <% if !@raffle_categories.blank? %>
+        <% for raffle_category in @raffle_categories %>
+        <li><%= link_to raffle_category.name, "#{}"%></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+    <h3>Prizes categories</h3>
+    <div id= "prize_categories">
+      <ul>
+        <% if !@prize_categories.blank? %>
+          <% for prize_category in @prize_categories %>
+          <li><%= link_to prize_category.name, "#{}"%></li>
+          <% end %>
+      <% end %>
+      </ul>
+    </div>
+  </div>
     <% if not logged_in? %>
       <%= link_to "Sign up now!", signup_path, class: ""%>
     <% end %>

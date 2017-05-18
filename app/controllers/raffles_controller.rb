@@ -7,7 +7,8 @@ class RafflesController < ApplicationController
   # GET /raffles
   # GET /raffles.json
   def index
-    @raffles = Raffle.paginate(page:params[:page], :per_page =>10)
+    @raffles = Raffle.paginate(page:params[:page], :per_page =>10).where("user_id = #{params[:user_id]}")
+
   end
 
   # GET /raffles/1

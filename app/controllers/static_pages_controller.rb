@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
+    @raffle_categories = RaffleCategory.all
+    @prize_categories = PrizeCategory.all
   end
 
   def help
@@ -8,6 +10,6 @@ class StaticPagesController < ApplicationController
   def about
   end
 
-  def contact    
+  def contact
   end
 end
