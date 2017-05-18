@@ -25,3 +25,4 @@
 
 ads
 .rake_tasks~
+db/schema
