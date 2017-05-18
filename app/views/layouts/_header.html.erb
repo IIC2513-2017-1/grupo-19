@@ -1,6 +1,16 @@
 <header class="">
   <%= link_to "Raffle-Mania", root_path, id: "logo"%>
-  <nav>search bar goes here</nav>
+  <nav>
+    <%= form_tag("#{}", :method => "get", id: "search-form") do %>
+    <select class="searchbar dropdown">
+      <option value="">Select</option>
+      <option value="0">Raffle</option>
+      <option value="1">Prize</option>
+    </select>
+        <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+        <%= submit_tag "Search", :name => nil %>
+    <% end %>
+  </nav>
   <nav>
     <ul class="">
       <% if logged_in? %>
