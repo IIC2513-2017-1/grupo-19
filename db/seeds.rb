@@ -28,3 +28,23 @@ end
   RaffleCategory.create!(name: name,
                          description: description)
 end
+
+3.times do |n|
+  name = Faker::Hipster.unique.word + "_raffle"
+  description = Faker::Hipster.sentence
+  price = rand(100.1000)
+  final_date = Time.now
+  collected_money = 0
+  user_id = 1
+  raffle_category_id = rand(1 .. 6)
+  Raffle.create!(name: name,
+                 description: description,
+                 price: price,
+                 final_date: final_date,
+                 collected_money: collected_money,
+                 user_id: user_id,
+                 raffle_category_id: raffle_category_id)
+end
+
+Number.create!(user_id: 1,
+               raffle_id: 1)

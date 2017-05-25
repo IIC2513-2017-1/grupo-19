@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  include PurchasesHelper
   before_action :set_purchase, only: [:show, :edit, :update, :destroy]
 
   # GET /purchases
@@ -25,15 +26,18 @@ class PurchasesController < ApplicationController
   # POST /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-
-    respond_to do |format|
-      if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase }
-      else
-        format.html { render :new }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+    if not_creator_user?(@purchase)
+      respond_to do |format|
+        if @purchase.save
+          format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
+          format.json { render :show, status: :created, location: @purchase }
+        else
+          format.html { render :new }
+          format.json { render json: @purchase.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to(root_url)
     end
   end
 
@@ -71,4 +75,5 @@ class PurchasesController < ApplicationController
     def purchase_params
       params.require(:purchase).permit(:user_id, :number_id)
     end
+
 end
