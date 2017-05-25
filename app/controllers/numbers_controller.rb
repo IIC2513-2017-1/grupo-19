@@ -16,14 +16,18 @@ class NumbersController < ApplicationController
   # POST /numbers.json
   def create
     @number = Number.new(number_params)
-    respond_to do |format|
-      if @number.save
-        format.html { redirect_to raffle_numbers_url, notice: 'Number was successfully created.' }
-        format.json { render :index, status: :created, location: @number }
-      else
-        format.html { render :new }
-        format.json { render json: @number.errors, status: :unprocessable_entity }
+    if !owner_user?
+      respond_to do |format|
+        if @number.save
+          format.html { redirect_to raffle_numbers_url, notice: 'Number was successfully created.' }
+          format.json { render :index, status: :created, location: @number }
+        else
+          format.html { render :new }
+          format.json { render json: @number.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to(root_url)
     end
   end
 
@@ -60,8 +64,8 @@ class NumbersController < ApplicationController
       params.permit(:raffle_id).merge(user_id: current_user.id)
     end
 
-    def owner_user
-      @user = User.find_by(id: @number.user_id)
-      redirect_to(root_url) unless current_user?(@user)
+    def owner_user?
+      @user = User.find(@raffle.user_id)
+      current_user == @user
     end
 end

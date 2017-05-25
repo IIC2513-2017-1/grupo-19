@@ -29,13 +29,13 @@ end
                          description: description)
 end
 
-3.times do |n|
+5.times do |n|
   name = Faker::Hipster.unique.word + "_raffle"
   description = Faker::Hipster.sentence
   price = rand(100.1000)
   final_date = Time.now
   collected_money = 0
-  user_id = 1
+  user_id = 2
   raffle_category_id = rand(1 .. 6)
   Raffle.create!(name: name,
                  description: description,
