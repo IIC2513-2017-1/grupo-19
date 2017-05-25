@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :comments
   resources :messages
   resources :winners
-  resources :purchases
   resources :raffles do
     resources :numbers, only: [:index, :create, :destroy]
   end

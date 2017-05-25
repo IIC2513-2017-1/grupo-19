@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   # Relationships
-  has_many :purchases, dependent: :destroy
   has_many :raffles, dependent: :destroy
   has_many :comments
+
+  has_many :numbers, dependent: :destroy
 
   has_many :messages_sent, foreign_key: 'sender_id',
                            class_name:  'Message'

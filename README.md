@@ -11,4 +11,3 @@ rutas:
 '/notifications'
 '/messages'
 '/winners'
-'/purchases'
