@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :raffles do
     resources :numbers, only: [:index, :create, :destroy]
   end
+
   resources :raffle_categories
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
@@ -23,5 +24,8 @@ Rails.application.routes.draw do
   end
   resources :conversations do
     resources :messages
+ end
+ resources :raffles, :member do
+   post :draw_raffle
  end
 end

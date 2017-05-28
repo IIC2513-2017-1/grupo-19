@@ -24,7 +24,7 @@ class WinnersController < ApplicationController
   # POST /winners
   # POST /winners.json
   def create
-    @winner = Winner.new(winner_params)
+    @winner = Winner.new()
 
     respond_to do |format|
       if @winner.save
@@ -66,6 +66,7 @@ class WinnersController < ApplicationController
     def set_winner
       @winner = Winner.find(params[:id])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def winner_params

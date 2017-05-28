@@ -6,6 +6,29 @@ class RafflesController < ApplicationController
 
   # GET /raffles
   # GET /raffles.json
+
+  def draw_raffle
+    @raffle = Raffle.find(params[:raffle_id])
+    numbers = @raffle.numbers
+    if numbers.length > 0
+      number_id = rand(1 .. numbers.length)
+    else
+      number_id = 1
+    end
+    prize_id = 1;
+    @winner = Winner.create(number_id: number_id, prize_id: prize_id)
+
+        respond_to do |format|
+          if @winner.save
+            format.html { redirect_to @winner, notice: 'Winner was successfully created.' }
+            format.json { render :show, status: :created, location: @winner }
+          else
+            format.html { render :new }
+            format.json { render json: @winner.errors, status: :unprocessable_entity }
+          end
+        end
+  end
+
   def index
     @raffles = Raffle.paginate(page:params[:page], :per_page =>10).all
 
@@ -68,6 +91,10 @@ class RafflesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_raffle
       @raffle = Raffle.find(params[:id])
+    end
+
+    def winner_params
+      params.require(:winner).permit(:number_id, :prize_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

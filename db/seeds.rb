@@ -46,5 +46,7 @@ end
                  raffle_category_id: raffle_category_id)
 end
 
-Number.create!(user_id: 1,
+Prize.create!( name: "prize from seed",
+               description: "this prize is worthless",
+               prize_category_id: 1,
                raffle_id: 1)

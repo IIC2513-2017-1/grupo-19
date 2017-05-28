@@ -37,9 +37,9 @@
 
 <% if creator_user?(@raffle) %>
   <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
+  <%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %> |
 <% else %>
-<%= link_to 'Buy a number', raffle_numbers_path(@raffle.id), method: :create, data: { confirm: 'Are you sure?'} %>
- |
+<%= link_to 'Bought numbers', raffle_numbers_path(@raffle) %>|
+<%= link_to 'Buy a number', raffle_numbers_path(@raffle.id), method: :create, data: { confirm: 'Are you sure?'} %> |
 <% end %>
-<%= link_to 'Back', raffles_path %> |
-<%= link_to 'Bought numbers', raffle_numbers_path(@raffle) %>
+<%= link_to 'Back', raffles_path %>
