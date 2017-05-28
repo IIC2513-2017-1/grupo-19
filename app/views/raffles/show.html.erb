@@ -35,6 +35,8 @@
   <%= @raffle.raffle_category_id %>
 </p>
 
+<%= link_to 'Prizes', raffle_prizes_path(@raffle.id) %> |
+
 <% if creator_user?(@raffle) %>
   <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
   <%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %> |

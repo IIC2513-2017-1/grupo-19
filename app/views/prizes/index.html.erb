@@ -9,7 +9,7 @@
       <th>Description</th>
       <th>Raffle</th>
       <th>Prize category</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -20,9 +20,10 @@
         <td><%= prize.description %></td>
         <td><%= prize.raffle_id %></td>
         <td><%= prize.prize_category_id %></td>
-        <td><%= link_to 'Show', prize %></td>
-        <td><%= link_to 'Edit', edit_prize_path(prize) %></td>
-        <td><%= link_to 'Destroy', prize, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if params.has_key?(:raffle_id) %>
+        <td><%= link_to 'Edit', edit_raffle_prize_path(raffle_id:@raffle.id,id: prize.id) %></td>
+        <td><%= link_to 'Destroy', raffle_prize_url(id: prize.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +31,7 @@
 
 <br>
 
-<%= link_to 'New Prize', new_prize_path %>
+<% if params.has_key?(:raffle_id) %>
+  <%= link_to 'New Prize', new_raffle_prize_path %>
+  <%= link_to 'Back', @raffle %>
+<% end %>

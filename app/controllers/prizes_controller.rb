@@ -1,10 +1,21 @@
 class PrizesController < ApplicationController
   before_action :set_prize, only: [:show, :edit, :update, :destroy]
+  before_action :set_raffle, only: [:show,
+                                    :edit,
+                                    :update,
+                                    :destroy,
+                                    :index,
+                                    :new,
+                                    :create]
 
   # GET /prizes
   # GET /prizes.json
   def index
-    @prizes = Prize.all
+    if params.has_key?(:raffle_id)
+      @prizes = Prize.where("raffle_id = #{params[:raffle_id]}")#Prize.all
+    else
+      @prizes = Prize.all
+    end
   end
 
   # GET /prizes/1
@@ -25,10 +36,10 @@ class PrizesController < ApplicationController
   # POST /prizes.json
   def create
     @prize = Prize.new(prize_params)
-
+    @prize.raffle_id = @raffle.id
     respond_to do |format|
       if @prize.save
-        format.html { redirect_to @prize, notice: 'Prize was successfully created.' }
+        format.html { redirect_to @prize.raffle, notice: 'Prize was successfully created.' }
         format.json { render :show, status: :created, location: @prize }
       else
         format.html { render :new }
@@ -65,6 +76,12 @@ class PrizesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_prize
       @prize = Prize.find(params[:id])
+    end
+
+    def set_raffle
+      if params.has_key?(:raffle_id)
+        @raffle = Raffle.find(params[:raffle_id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
