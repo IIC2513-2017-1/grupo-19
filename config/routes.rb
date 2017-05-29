@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   resources :prizes, only: [:index]
   resources :prize_categories
   resources :notifications
-  resources :comments
   resources :messages
   resources :winners
   resources :raffles do
     resources :numbers, only: [:index, :create, :destroy]
     resources :prizes, only: [:index, :new, :create, :edit, :destroy, :show]
+    resources :comments
   end
 
   resources :raffle_categories

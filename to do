@@ -1,7 +1,6 @@
 css
 sortear rifa
 comentarios sobre rifas
-crear premios al crear rifa
 notificaciones
   vista de notificaciones (leido no leido, estilo inbox)
   mandar notificaciones cuando se sortea una rifa en que tengo numero
@@ -9,3 +8,6 @@ notificaciones
 implementar following
 barra de busqueda
 implementar máximo de numeros a comprar por rifa
+
+done
+crear premios al crear rifa (almost)

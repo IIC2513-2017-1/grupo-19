@@ -3,9 +3,9 @@
   <nav>
     <%= form_tag("#{}", :method => "get", id: "search-form") do %>
     <select class="searchbar dropdown">
-      <option value="">Select</option>
       <option value="0">Raffle</option>
       <option value="1">Prize</option>
+      <option value="3">User</option>
     </select>
         <%= text_field_tag :search, params[:search], placeholder: "Search" %>
         <%= submit_tag "Search", :name => nil %>
