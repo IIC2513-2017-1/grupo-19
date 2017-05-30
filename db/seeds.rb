@@ -13,7 +13,7 @@ User.create!(name: "Usuario Administrador",
              admin: true)
 
 20.times do |n|
-  name = Faker::StarWars.character
+  name = Faker::StarWars.unique.character
   email = Faker::Internet.unique.email
   password = "password"
   User.create!(name: name,
@@ -22,10 +22,17 @@ User.create!(name: "Usuario Administrador",
                password_confirmation: password)
 end
 
-6.times do |n|
-  name = Faker::Hipster.unique.word
+5.times do |n|
+  name = Faker::Hipster.unique.word + "_raffle_category"
   description = Faker::Hipster.sentence
   RaffleCategory.create!(name: name,
+                         description: description)
+end
+
+3.times do |n|
+  name = Faker::Hipster.unique.word + "_prize_category"
+  description = Faker::Hipster.sentence
+  PrizeCategory.create!(name: name,
                          description: description)
 end
 
@@ -35,7 +42,7 @@ end
   price = rand(100.1000)
   final_date = Time.now
   collected_money = 0
-  user_id = 2
+  user_id = rand(1..21)
   raffle_category_id = rand(1 .. 6)
   Raffle.create!(name: name,
                  description: description,
