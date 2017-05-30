@@ -1,13 +1,15 @@
-css
-sortear rifa
-comentarios sobre rifas
+to do
 notificaciones
   vista de notificaciones (leido no leido, estilo inbox)
   mandar notificaciones cuando se sortea una rifa en que tengo numero
   mandar notificaciones cuando se modifica una rifa en que tengo numero (dar opcion de cancelar)
 implementar following
 barra de busqueda
-implementar máximo de numeros a comprar por rifa
+
+developing
+css
+sortear rifa (falta solo sortear si es el tiempo de sortear)
+comentarios sobre rifas
+crear premios al crear rifa (almost)
 
 done
-crear premios al crear rifa (almost)

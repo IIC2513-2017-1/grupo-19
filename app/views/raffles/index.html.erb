@@ -29,7 +29,7 @@
         <td><%= raffle.user_id %></td>
         <td><%= raffle.raffle_category_id %></td>
         <td><%= link_to 'Show', raffle %></td>
-        <% if creator_user?(raffle) %>
+        <% if (creator_user?(raffle) || current_user.admin?)%>
         <td><%= link_to 'Edit', edit_raffle_path(raffle) %></td>
         <td><%= link_to 'Destroy', raffle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>

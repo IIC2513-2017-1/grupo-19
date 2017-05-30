@@ -37,14 +37,18 @@ class PrizesController < ApplicationController
   def create
     @prize = Prize.new(prize_params)
     @prize.raffle_id = @raffle.id
-    respond_to do |format|
-      if @prize.save
-        format.html { redirect_to @prize.raffle, notice: 'Prize was successfully created.' }
-        format.json { render :show, status: :created, location: @prize }
-      else
-        format.html { render :new }
-        format.json { render json: @prize.errors, status: :unprocessable_entity }
+    if owner_user?
+      respond_to do |format|
+        if @prize.save
+          format.html { redirect_to @prize.raffle, notice: 'Prize was successfully created.' }
+          format.json { render :show, status: :created, location: @prize }
+        else
+          format.html { render :new }
+          format.json { render json: @prize.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to(root_url)
     end
   end
 
@@ -87,5 +91,10 @@ class PrizesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def prize_params
       params.require(:prize).permit(:name, :description, :raffle_id, :prize_category_id)
+    end
+
+    def owner_user?
+      @user = User.find(@raffle.user_id)
+      current_user == @user
     end
 end

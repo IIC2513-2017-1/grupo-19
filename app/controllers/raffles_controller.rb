@@ -37,6 +37,10 @@ class RafflesController < ApplicationController
   # GET /raffles/1
   # GET /raffles/1.json
   def show
+    @prizes = []
+    @raffle.prizes.each do |prize|
+      @prizes << Prize.find(prize)
+    end
   end
 
   # GET /raffles/new
@@ -109,6 +113,6 @@ class RafflesController < ApplicationController
     def creator_user
       #@user = User.find_by(id: @raffle.user_id)
       @user = @raffle.user
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless (current_user?(@user) || current_user.admin?)
     end
 end

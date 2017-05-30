@@ -35,9 +35,35 @@
   <%= @raffle.raffle_category_id %>
 </p>
 
-<%= link_to 'Prizes', raffle_prizes_path(@raffle.id) %> |
+<h2>Prizes for this raffle</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Prize category</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prizes.each do |prize| %>
+      <tr>
+        <td><%= prize.name %></td>
+        <td><%= prize.description %></td>
+        <td><%= prize.prize_category_id %></td>
+        <% if params.has_key?(:raffle_id) %>
+        <td><%= link_to 'Edit', edit_raffle_prize_path(raffle_id:@raffle.id,id: prize.id) %></td>
+        <td><%= link_to 'Destroy', raffle_prize_url(id: prize.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Comments', raffle_comments_path(@raffle.id) %> |
-<% if creator_user?(@raffle) %>
+<% if (creator_user?(@raffle) || current_user.admin?) %>
+<%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
   <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
   <%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %> |
 <% else %>
