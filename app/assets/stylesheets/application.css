@@ -14,10 +14,12 @@
  *= require_self
  */
  body {
-    background-color: #fff;
+   /*border-style: solid;*/
+   margin: 0px;
+    /*background-color: #fff;
     color: #333;
     font-family: sans-serif, helvetica, arial;
     font-size: 13px;
     line-height: 18px;
-    margin: 33px;
+    margin: 33px;*/
   }

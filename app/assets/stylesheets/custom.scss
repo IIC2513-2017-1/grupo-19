@@ -1,189 +1,86 @@
-/* mixins, variables, etc. */
 
-$state-danger-text: red;
+$prussian-blue: #0B3C5D;
+$sky-blue: #328CC1;
+$gold-leaf: #D9B310;
+$ivory-black: #1D2731;
 
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+header {
+  color: black;
+  width: 100%;
+  background-color: $sky-blue;
+  position: fixed;
+  top: 0px;
+  text-align: center;
+  div {
+    margin: 11px;
+    &.logo {
+      float: left;
+      background-color: $gold-leaf;
+      border: 3px solid $gold-leaf;
+      margin: 0px;
+      bottom: 0px;
+      padding: 10px;
+    }
+    &.search-bar-header {
+      float: left;
+    }
+    &.user-menu {
+      float: right;
+      a {
+        padding: 10px;
+        border-left: 1px solid $ivory-black;
+      }
+    }
+    a {
+      text-decoration: none;
+      &:hover{
+        color: green;
+        background-color: transparent;
+      }
+      &:visited {
+        color: pink;
+        background-color: transparent;
+      }
+      &:hover {
+        color: red;
+        background-color: transparent;
+      }
+      &:active {
+        color: yellow;
+        background-color: transparent;
+      }
+    }
+  }
 }
 
-/* Universal */
-
-section {
-  overflow: auto;
+input{
+  &.search-button{
+    top: 8px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 6px #999;
+    &:hover {
+      background-color: $prussian-blue;
+    }
+    &:active {
+      background-color: #3e8e41;
+      box-shadow: 0 2px #666;
+      transform: translateY(2px);
+    }
+  }
 }
 
-textarea {
-  resize: vertical;
+div.content{
+  padding: 20px;
+  padding-top: 40px;
 }
 
 .center {
   text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
 }
 
-/* Typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-}
-
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: #777;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
-}
-
-/* header */
-
-header {
-  text-align: center;
-  margin-top: 45 px;
-  padding-top: 5px;
-  color: #777;
-  border-bottom: 1px solid #eaeaea;
-  nav {
-    margin-left: 45px;
-    display: inline-block;
-    ul {
-      display: inline-block;
-      li {
-        display: inline-block;
-        a {
-        }
-      }
-    }
-  }
-  #logo {
-    font-size: 1.7em;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    padding-top: 9px;
-    font-weight: bold;
-    &:hover {
-      color: #eaeaea;
-      text-decoration: none;
-    }
-  }
-}
-
-/* Footer */
-
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
-  a {
-    color: #555;
-  }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
-    }
-  }
-}
-
-/* Miscellaneous */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
-}
-
-/* Sidebar */
-
-aside {
-  section.user_info{
-    margin-top: 20px;
-  }
-  section {
-    padding: 10px 0;
-    margin-top: 20px;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-  }
-}
-
-.gravatar {
-  float: left;
-  margin-right: 10px;
-}
-
-.gravatar_edit {
-  margin-top: 15px;
-}
-
-/* forms */
-
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 25%;
-  margin-bottom: 15px;
-  @include box_sizing;
-}
-
-input {
-  height: auto !important;
-}
-
-#error_explanation {
-  color: red;
-  ul {
-    color: red;
-    margin: 0 0 30px 0;
-  }
-}
-
-/* Users index */
-
-.users {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
-  }
+body {
+  background-color: $ivory-black;
+  color: $gold-leaf;
 }
