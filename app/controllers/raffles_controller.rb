@@ -31,7 +31,11 @@ class RafflesController < ApplicationController
 
   def index
     @raffles = Raffle.paginate(page:params[:page], :per_page =>10).all
-
+    if params[:search]
+    @recipes = Raffle.paginate(page:params[:page], :per_page =>10).search(params[:search]).order("created_at DESC")
+    else
+    @raffles = Raffle.paginate(page:params[:page], :per_page =>10).all.order("created_at DESC")
+  end
   end
 
   # GET /raffles/1
@@ -92,6 +96,7 @@ class RafflesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_raffle
       @raffle = Raffle.find(params[:id])

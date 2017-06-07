@@ -6,7 +6,7 @@ class Raffle < ApplicationRecord
   has_many :winners
   has_many :comments
   has_many :notifications
-  
+
   validates :name, presence: true,
                    length: { maximum: 127,
                              minimum: 5},
@@ -23,5 +23,9 @@ class Raffle < ApplicationRecord
     if final_date.present? && final_date < Date.today
       errors.add(:final_date, "can't be in the past")
     end
+  end
+
+  def self.search(search)
+    where("name LIKE ? OR description LIKE ? OR price LIKE ? OR id LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
   end
 end

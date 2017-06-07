@@ -1,29 +1,29 @@
 <header class="">
   <%= link_to "Raffle-Mania", root_path, id: "logo"%>
   <nav>
-    <%= form_tag("#{}", :method => "get", id: "search-form") do %>
+    <%= form_tag(raffles_path, :method => "get", id: "search-form") do %>
     <select class="searchbar dropdown">
       <option value="0">Raffle</option>
       <option value="1">Prize</option>
       <option value="3">User</option>
     </select>
-        <%= text_field_tag :search, params[:search], placeholder: "Search" %>
-        <%= submit_tag "Search", :name => nil %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+    <%= submit_tag "Search", :name => nil %>
     <% end %>
   </nav>
   <nav>
     <ul class="">
       <% if logged_in? %>
-        <li><%= link_to "Users", users_path %></li>
-        <li><%= link_to "Raffles", raffles_path %></li>
-        <li><%= link_to "Organize Raffle", new_raffle_path %></li>
-        <li><%= link_to "Profile", current_user %></li>
-        <li><%= link_to "Messages", conversations_path %></li>
-        <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-        <li><%= link_to "Log out", logout_path, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "Log in", login_path %></li>
-        <li><%= link_to "Sign up", signup_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <li><%= link_to "Raffles", raffles_path %></li>
+      <li><%= link_to "Organize Raffle", new_raffle_path %></li>
+      <li><%= link_to "Profile", current_user %></li>
+      <li><%= link_to "Messages", conversations_path %></li>
+      <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+      <li><%= link_to "Log out", logout_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to "Log in", login_path %></li>
+      <li><%= link_to "Sign up", signup_path %></li>
       <% end %>
     </ul>
   </nav>
