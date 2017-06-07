@@ -1,68 +1,63 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @raffle.name %>
-</p>
+<div class="raffle-info">
+  <h1><%= @raffle.name %></h1>
+  <h3>by: <%= @raffle.user.name %></h3>
+  <p>
+    <strong>Description:</strong>
+    <%= @raffle.description %>
+  </p>
+  <p>
+    <strong>Final date:</strong>
+    <%= @raffle.final_date %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    <%= @raffle.price %>
+  </p>
+  <p>
+    <strong>Raffle category:</strong>
+    <%= @raffle.raffle_category.name %>
+  </p>
+  <p>
+    <strong>Collected money:</strong>
+    <%= @raffle.collected_money %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @raffle.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @raffle.price %>
-</p>
-
-<p>
-  <strong>Final date:</strong>
-  <%= @raffle.final_date %>
-</p>
-
-<p>
-  <strong>Collected money:</strong>
-  <%= @raffle.collected_money %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @raffle.user_id %>
-</p>
-
-<p>
-  <strong>Raffle category:</strong>
-  <%= @raffle.raffle_category_id %>
-</p>
+</div>
 
 <h2>Prizes for this raffle</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Prize category</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+<h2>Comments</h2>
 
-  <tbody>
-    <% @prizes.each do |prize| %>
-      <tr>
-        <td><%= prize.name %></td>
-        <td><%= prize.description %></td>
-        <td><%= prize.prize_category_id %></td>
-        <% if params.has_key?(:raffle_id) %>
-        <td><%= link_to 'Edit', edit_raffle_prize_path(raffle_id:@raffle.id,id: prize.id) %></td>
-        <td><%= link_to 'Destroy', raffle_prize_url(id: prize.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if !@raffle.comments.blank? %>
+  <% for comment in @raffle.comments %>
+    <div class="comment">
+      <h4><%=comment.user.name%> said:</h4>
+      <p class="comment-content"><%= comment.content%></p>
+      <p class="date"><b>Last modification:</b> <%= comment.updated_at%></p>
+      <% if logged_in? && current_user?(comment.user) %>
+      <div class="">
+        <%= link_to 'Edit', edit_raffle_comment_path(id: comment.id,
+                                                     raffle_id: @raffle.id),
+                            class:"normal-button"%>
+
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="new-comment">
+  <h1>Editing Comment</h1>
+  <div class="input-list">
+    <%= render 'form_comment', comment: @comment %>
+  </div>
+</div>
+
+
 
 <%= link_to 'Comments', raffle_comments_path(@raffle.id) %> |
-<% if (creator_user?(@raffle) || current_user.admin?) %>
+<% if logged_in? && (creator_user?(@raffle) || current_user.admin?) %>
 <%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
   <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
   <%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %> |

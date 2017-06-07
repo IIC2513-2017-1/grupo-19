@@ -1,6 +1,10 @@
-<h1>Editing Comment</h1>
 
-<%= render 'form', comment: @comment %>
-
-<%= link_to 'Show', edit_raffle_comment_path(id: @comment.id) %> |
-<%= link_to 'Back', raffle_comments_path %>
+<div class="form">
+  <div class="form-window">
+    <h1>Editing Comment</h1>
+    <div class="input-list">
+      <%= render 'form', comment: @comment %>
+    </div>
+    <%= link_to 'Back', raffle_path(id: params[:raffle_id]) %>
+  </div>
+</div>

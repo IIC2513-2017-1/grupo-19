@@ -12,31 +12,31 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <li><%= f.label :name %></li>
+    <li><%= f.text_field :name %></li>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+    <li><%= f.label :description %></li>
+    <li><%= f.text_area :description %></li>
   </div>
 
   <div class="field">
-    <%= f.label :price %>
-    <%= f.number_field :price %>
+    <li><%= f.label :price %></li>
+    <li><%= f.number_field :price %></li>
   </div>
 
   <div class="field">
-    <%= f.label :final_date %>
-    <%= f.datetime_select :final_date %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :raffle_category_id %>
-    <%= f.number_field :raffle_category_id %>
+    <li><%= f.label :final_date %></li>
+    <li><%= f.datetime_select :final_date %></li>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field">
+    <li><%= f.label :raffle_category_id %></li>
+    <li><%= f.number_field :raffle_category_id %></li>
+  </div>
+
+  <div class="field">
+    <li><%= f.submit class:"button" %></li>
   </div>
 <% end %>

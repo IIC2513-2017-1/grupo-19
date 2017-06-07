@@ -1,6 +1,11 @@
-<h1>Editing Raffle</h1>
 
-<%= render 'form', raffle: @raffle %>
-
-<%= link_to 'Show', @raffle %> |
-<%= link_to 'Back', raffles_path %>
+<div class="form">
+  <div class="form-window">
+    <h1>Editing Raffle</h1>
+    <div class="input-list">
+      <%= render 'form', raffle: @raffle %>
+    </div>
+    <%= link_to 'Show', @raffle %> |
+    <%= link_to 'Back', raffles_path %>
+  </div>
+</div>

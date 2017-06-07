@@ -1,44 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Raffles</h1>
+<h1 class="center">Raffles</h1>
 
 <%= will_paginate %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Final date</th>
-      <th>Collected money</th>
-      <th>User</th>
-      <th>Raffle category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @raffles.each do |raffle| %>
-      <tr>
-        <td><%= raffle.name %></td>
-        <td><%= raffle.description %></td>
-        <td><%= raffle.price %></td>
-        <td><%= raffle.final_date %></td>
-        <td><%= raffle.collected_money %></td>
-        <td><%= raffle.user_id %></td>
-        <td><%= raffle.raffle_category_id %></td>
-        <td><%= link_to 'Show', raffle %></td>
-        <% if (creator_user?(raffle) || current_user.admin?)%>
-        <td><%= link_to 'Edit', edit_raffle_path(raffle) %></td>
-        <td><%= link_to 'Destroy', raffle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<div class="">
+  <% @raffles.each do |raffle| %>
+    <div class="raffle-info">
+      <h2><%= raffle.name %></h2>
+      <h3>by <%= raffle.user.name %></h3>
+      <p> <%= raffle.description %> </p>
+      <p><b>Final Date:</b> <%= raffle.final_date %></p>
+      <p><b>Price:</b> <%= raffle.price %></p>
+      <p><b>Category:</b> <%= raffle.raffle_category.name %></p>
+      <div class="raffle-buttons">
+        <%= link_to 'Show', raffle , class:"normal-button"%>
+        <% if logged_in? %>
+          <% if (creator_user?(raffle) || current_user.admin?)%>
+            <%= link_to 'Edit', edit_raffle_path(raffle) , class:"normal-button"%>
+            <%= link_to 'Destroy', raffle, method: :delete,
+                                           data: { confirm: 'Are you sure?' } ,
+                                           class:"normal-button"%>
+          <% end %>
         <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <%= will_paginate %>
 
-<%= link_to 'New Raffle', new_raffle_path %>
+<!--<%= link_to 'New Raffle', new_raffle_path %>-->

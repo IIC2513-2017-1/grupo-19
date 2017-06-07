@@ -8,6 +8,7 @@ header {
   color: black;
   width: 100%;
   background-color: $sky-blue;
+  border-bottom: 2px solid $gold-leaf;
   position: fixed;
   top: 0px;
   text-align: center;
@@ -33,12 +34,8 @@ header {
     }
     a {
       text-decoration: none;
-      &:hover{
-        color: green;
-        background-color: transparent;
-      }
       &:visited {
-        color: pink;
+        color: $ivory-black;
         background-color: transparent;
       }
       &:hover {
@@ -46,7 +43,7 @@ header {
         background-color: transparent;
       }
       &:active {
-        color: yellow;
+        color: $ivory-black;
         background-color: transparent;
       }
     }
@@ -54,11 +51,14 @@ header {
 }
 
 footer {
+  position: fixed;
   bottom: 0px;
+  width: 99%;
   border-top: 3px solid $gold-leaf;
   background-color: $sky-blue;
   padding: 15px;
   small {
+    float: left;
     padding-left: 5px;
   }
   div{
@@ -73,6 +73,23 @@ footer {
 }
 
 input{
+  &.button{
+    width: 70%;
+    margin-left: 15%;
+    top: 8px;
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 6px #999;
+    &:hover {
+      background-color: $prussian-blue;
+    }
+    &:active {
+      background-color: #3e8e41;
+      box-shadow: 0 2px #666;
+      transform: translateY(2px);
+    }
+  }
   &.search-button{
     top: 8px;
     border: none;
@@ -98,6 +115,32 @@ a.sign-up-button {
   align-self: center;
 }
 
+a.normal-button {
+  background-color: LightGray;
+  width: 70%;
+  padding: 7px;
+  margin-bottom: 8px;
+  top: 8px;
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  &:hover {
+    color: $ivory-black;
+    text-decoration: none;
+    background-color: $prussian-blue;
+  }
+  &:visited{
+    color: $ivory-black;
+    text-decoration: none;
+  }
+  &:active {
+    color: $ivory-black;
+    text-decoration: none;
+    background-color: #3e8e41;;
+  }
+}
+
 div.content{
   padding: 20px;
   padding-top: 40px;
@@ -107,14 +150,121 @@ div.content{
   }
 }
 
+div.raffle-info{
+  border: 3px solid $sky-blue;
+  border-radius: 4px;
+  background-color: $sky-blue;
+  color: $ivory-black;
+  & > *{
+    margin-left: 3%;
+  }
+  h3 {
+    margin-left: 5%;
+  }
+  div.raffle-buttons {
+    display: flex;
+    justify-content: flex-end;
+    a.normal-button{
+      width: auto;
+      margin-left: 5px;
+    }
+  }
+}
+
+div.comment {
+  border: 3px solid $sky-blue;
+  border-radius: 4px;
+  background-color: $sky-blue;
+  color: $ivory-black;
+  & > *{
+    margin-left: 3%;
+  }
+  p.comment-content {
+    width: 91%;
+    border: 3px solid $prussian-blue;
+    border-radius: 4px;
+    padding: 1%;
+  }
+  p.date {
+    text-align: right;
+    margin-right: 4%;
+  }
+  div {
+    display: flex;
+    justify-content: flex-end;
+    a.normal-button{
+      width: auto;
+    }
+  }
+}
+
+div.new-comment {
+  border: 3px solid $sky-blue;
+  border-radius: 4px;
+  background-color: $sky-blue;
+  color: $ivory-black;
+  & > *{
+    margin-left: 3%;
+  }
+}
+
 div#categories_displayer{
   display: flex;
   justify-content:center;
   div#raffle_categories{
-    width: 30%;
+    width: 50%;
   }
   div#prize_categories{
-    width: 30%;
+    width: 50%;
+  }
+  div {
+    border: 3px solid $sky-blue;
+    background-color: $sky-blue;
+    color: $ivory-black;
+    border-radius: 8px;
+    padding-bottom: 15px;
+    align-items: center;
+    div.list-of-links ul {
+      margin-left: 0px;
+      margin-right: 0px;
+      text-align: center;
+      li {
+        margin-top: 3px;
+        margin-bottom: 3px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        list-style: none;
+        width: 92%;
+        background-color: LightGrey;
+        border: 3px solid LightGrey;
+        border-radius: 4px;
+      }
+    }
+    a.normal-button {
+      background-color: LightGray;
+      width: 70%;
+      padding: 7px;
+      margin-bottom: 16px;
+      top: 8px;
+      border: none;
+      text-align: center;
+      border-radius: 4px;
+      text-decoration: none;
+      &:hover {
+        color: $ivory-black;
+        text-decoration: none;
+        background-color: $prussian-blue;
+      }
+      &:visited{
+        color: $ivory-black;
+        text-decoration: none;
+      }
+      &:active {
+        color: $ivory-black;
+        text-decoration: none;
+        background-color: #3e8e41;;
+      }
+    }
   }
 }
 
@@ -132,6 +282,36 @@ div.form {
     div.input-list{
       border: none;
       text-align: left;
+      div.field{
+        li {
+          list-style: none;
+          textarea {
+            width: 100%;
+            resize: vertical;
+          }
+          input {
+            width: 100%;
+            margin-bottom: 5%;
+            &.button {
+              width: 70%;
+              margin-left: 15%;
+              top: 8px;
+              border: none;
+              text-align: center;
+              border-radius: 4px;
+              box-shadow: 0 6px #999;
+              &:hover {
+                background-color: $prussian-blue;
+              }
+              &:active {
+                background-color: #3e8e41;
+                box-shadow: 0 2px #666;
+                transform: translateY(2px);
+              }
+            }
+          }
+        }
+      }
       li {
         list-style: none;
         input {
