@@ -33,30 +33,58 @@
   <% for comment in @raffle.comments %>
     <div class="comment">
       <h4><%=comment.user.name%> said:</h4>
-      <p class="comment-content"><%= comment.content%></p>
+      <div class="comment-content">
+        <% if !comment.answered.blank? %>
+          <p><strong>As an answer for what <%=comment.answered.user.name%> said:</strong></p>
+          <p class="comment-content"><%= comment.answered.content%></p>
+        <% end %>
+        <p><%= comment.content%></p>
+      </div>
       <p class="date"><b>Last modification:</b> <%= comment.updated_at%></p>
-      <% if logged_in? && current_user?(comment.user) %>
+      <% if logged_in? %>
       <div class="">
-        <%= link_to 'Edit', edit_raffle_comment_path(id: comment.id,
+        <% if current_user?(comment.user) %>
+          <%= link_to 'Edit', edit_raffle_comment_path(id: comment.id,
+                                                       raffle_id: @raffle.id),
+                              class:"normal-button"%>
+          <%= link_to 'Destroy', raffle_comment_path(id: comment.id,
                                                      raffle_id: @raffle.id),
-                            class:"normal-button"%>
+                                 method: :delete,
+                                 data: { confirm: 'Are you sure?' },
+                                 class:"normal-button" %>
+        <% else %>
+          <%= link_to 'Answer', new_raffle_comment_comment_path(comment_id: comment.id,
+                              raffle_id: @raffle.id),
+                              class:"normal-button"%>
+        <% end %>
 
       </div>
       <% end %>
+      <% if !comment.answers.blank? %>
+        <p><strong>Answers:</strong></p>
+          <div class="answers">
+            <% for answer in comment.answers %>
+              <p><strong><%= answer.user.name%> answered:</strong></p>
+              <p class="comment-content"><%= answer.content%></p>
+            <% end %>
+          </div>
+      <% end %>
+
     </div>
   <% end %>
 <% end %>
 
-<div class="new-comment">
-  <h1>Editing Comment</h1>
-  <div class="input-list">
-    <%= render 'form_comment', comment: @comment %>
+<% if logged_in? %>
+  <div class="new-comment">
+    <h1>Make a comment</h1>
+    <div class="input-list">
+      <%= render 'form_comment', comment: @comment %>
+    </div>
   </div>
-</div>
+<% end %>
 
 
 
-<%= link_to 'Comments', raffle_comments_path(@raffle.id) %> |
 <% if logged_in? && (creator_user?(@raffle) || current_user.admin?) %>
 <%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
   <%= link_to 'Edit', edit_raffle_path(@raffle) %> |

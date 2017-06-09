@@ -3,7 +3,7 @@
   <div class="form-window">
     <h1>Editing Comment</h1>
     <div class="input-list">
-      <%= render 'form', comment: @comment %>
+      <%= render 'form_edit', comment: @comment %>
     </div>
     <%= link_to 'Back', raffle_path(id: params[:raffle_id]) %>
   </div>

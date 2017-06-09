@@ -7,6 +7,8 @@ class CommentsController < ApplicationController
                                     :index,
                                     :new,
                                     :create]
+  before_action :set_answered, only: [:new, :create]
+  before_action :verify_user, only: [:edit, :update, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -37,6 +39,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        if params.has_key?(:comment_id)
+          @response = Response.new(responded_id: params[:comment_id], response_id: @comment.id)
+          @response.save
+        end
         format.html { redirect_to raffle_path(id: @comment.raffle_id), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
@@ -65,7 +71,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to raffle_comments_path, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to raffle_path(id: @comment.raffle_id), notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -76,9 +82,21 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def verify_user
+      if !current_user?(@comment.user)
+        format.html { redirect_to raffle_path(id: @comment.raffle_id), alert: 'Invalid action!' }
+      end
+    end
+
     def set_raffle
       if params.has_key?(:raffle_id)
         @raffle = Raffle.find(params[:raffle_id])
+      end
+    end
+
+    def set_answered
+      if params.has_key?(:comment_id)
+        @answered = Comment.find(params[:comment_id])
       end
     end
 

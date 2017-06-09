@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   resources :raffles do
     resources :numbers, only: [:index, :create, :destroy]
     resources :prizes, only: [:index, :new, :create, :edit, :destroy, :show]
-    resources :comments
+    resources :comments, only: [:create, :edit, :destroy, :show]
+    resources :comments do
+      resources :comments, only: [:new, :create]
+    end
   end
 
   resources :raffle_categories
