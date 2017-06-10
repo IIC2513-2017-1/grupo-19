@@ -56,6 +56,7 @@ class RafflesController < ApplicationController
   # POST /raffles.json
   def create
     @raffle = Raffle.new(raffle_params)
+    @raffle.collected_money = 0
     respond_to do |format|
       if @raffle.save
         format.html { redirect_to @raffle, notice: 'Raffle was successfully created.' }

@@ -18,6 +18,8 @@ class NumbersController < ApplicationController
     if !owner_user?
       respond_to do |format|
         if @number.save
+          @raffle.collected_money = @raffle.numbers.count * @raffle.price
+          @raffle.save
           format.html { redirect_to raffle_numbers_url, notice: 'Number was successfully created.' }
           format.json { render :index, status: :created, location: @number }
         else
