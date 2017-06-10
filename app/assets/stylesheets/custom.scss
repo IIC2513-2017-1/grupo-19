@@ -72,7 +72,7 @@ footer {
   }
 }
 
-input{
+input {
   &.button{
     width: 70%;
     margin-left: 15%;
@@ -144,6 +144,7 @@ a.normal-button {
 div.content{
   padding: 20px;
   padding-top: 40px;
+  padding-bottom: 80px;
   div{
     //border-style: solid;
     margin: 10px;
@@ -173,7 +174,7 @@ div.raffle-info{
 
 div.comment {
   border: 3px solid $sky-blue;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: $sky-blue;
   color: $ivory-black;
   & > *{
@@ -182,13 +183,13 @@ div.comment {
   div.comment-content {
     margin-left: 3%;
     width: 91%;
-    border: 3px solid $prussian-blue;
-    border-radius: 4px;
+    border-left: 3px solid $prussian-blue;
+    border-radius: 8px;
     padding: 1%;
     display: block;
     p.comment-content {
-      border: 3px solid $prussian-blue;
-      border-radius: 4px;
+      border-left: 3px solid $prussian-blue;
+      border-radius: 8px;
       padding: 1%;
     }
   }
@@ -212,8 +213,8 @@ div.comment {
     margin: 3%;
     margin-top: 1%;
     p.comment-content {
-      border: 3px solid $prussian-blue;
-      border-radius: 4px;
+      border-left: 3px solid $prussian-blue;
+      border-radius: 8px;
       padding: 1%;
     }
   }
@@ -338,6 +339,17 @@ div.form {
     border: 3px solid $sky-blue;
     border-radius: 8px;
     background-color: $sky-blue;
+    div.answered {
+      border: 3px solid $prussian-blue;
+      border-radius: 8px;
+      text-align: left;
+      padding: 2%;
+      p.comment-content {
+          border-left: 3px solid $prussian-blue;
+          border-radius: 8px;
+          padding: 2%;
+      }
+    }
     div.input-list{
       border: none;
       text-align: left;
@@ -407,4 +419,56 @@ body {
   font-family: sans-serif;
   background-color: $ivory-black;
   color: $gold-leaf;
+}
+
+div.profile-content {
+  color: $ivory-black;
+  margin: 0%;
+  display: flex;
+  justify-content: flex-start;
+  div.user-info {
+    border: 3px solid $sky-blue;
+    border-radius: 8px;
+    background-color: $sky-blue;
+    padding: 1%;
+    width: 30%;
+    margin: 2%;
+    height: 70%;
+    display: block;
+    text-align: center;
+    img.gravatar{
+
+    }
+    h2, h3{
+      text-align: left;
+    }
+    h4 {
+      text-align: right;
+    }
+  }
+  div.user-raffles {
+    margin: 2%;
+    width: 69%;
+    h2 {
+      color: $gold-leaf;
+      text-align: center;
+    }
+    div.single-raffle{
+      text-align: left;
+      border: 3px solid $sky-blue;
+      border-radius: 8px;
+      background-color: $sky-blue;
+      margin-bottom: 1%;
+      text-align: right;
+      h2{
+        text-align: left;
+        padding-left: 3%;
+        color: $ivory-black;
+      }
+      div{
+        margin-bottom: 2%;
+        margin-right: 2%;
+      }
+    }
+  }
 }

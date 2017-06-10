@@ -1,3 +1,4 @@
+<% provide(:title, @raffle.name)%>
 <p id="notice"><%= notice %></p>
 
 <div class="raffle-info">
@@ -23,20 +24,58 @@
     <strong>Collected money:</strong>
     <%= @raffle.collected_money %>
   </p>
+  <div class="raffle-buttons">
+    <% if logged_in? %>
+      <% if creator_user?(@raffle) %>
+        <%= link_to 'Edit', edit_raffle_path(@raffle), class:"normal-button" %>
+        <!--<%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %>-->
+        <%= link_to 'Bought numbers', raffle_numbers_path(@raffle), class:"normal-button" %>
+      <% else %>
+        <%= link_to 'Buy a number', raffle_numbers_path(@raffle.id),
+                                    method: :create,
+                                    data: { confirm: 'Are you sure?'},
+                                    class:"normal-button" %>
+      <% end %>
+    <% end %>
 
+  </div>
+
+  <%= link_to 'Back', raffles_path %>
 </div>
 
 <h2>Prizes for this raffle</h2>
+<%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
+
+<% if logged_in? && (creator_user?(@raffle) || current_user.admin?) %>
+<% else %>
+<% end %>
+
 <h2>Comments</h2>
 
+
+<% if logged_in? %>
+  <div class="new-comment">
+    <h1>Make a comment</h1>
+    <div class="input-list">
+      <%= render 'form_comment', comment: @comment %>
+    </div>
+  </div>
+<% end %>
+
+
+
 <% if !@raffle.comments.blank? %>
-  <% for comment in @raffle.comments %>
+  <% comments_of_raffle = @raffle.comments.sort_by(&:created_at).reverse %>
+  <% for comment in  comments_of_raffle %>
     <div class="comment">
-      <h4><%=comment.user.name%> said:</h4>
       <div class="comment-content">
+        <h4><%=comment.user.name%> said:</h4>
         <% if !comment.answered.blank? %>
-          <p><strong>As an answer for what <%=comment.answered.user.name%> said:</strong></p>
-          <p class="comment-content"><%= comment.answered.content%></p>
+          <p class="comment-content">
+            <strong>As an answer for what <%=comment.answered.user.name%> said:</strong>
+            <br><br>
+            <%= comment.answered.content%>
+          </p>
         <% end %>
         <p><%= comment.content%></p>
       </div>
@@ -64,8 +103,9 @@
         <p><strong>Answers:</strong></p>
           <div class="answers">
             <% for answer in comment.answers %>
-              <p><strong><%= answer.user.name%> answered:</strong></p>
-              <p class="comment-content"><%= answer.content%></p>
+              <p class="comment-content"><strong><%= answer.user.name%> answered:</strong>
+                <br><br>
+              <%= answer.content%></p>
             <% end %>
           </div>
       <% end %>
@@ -73,24 +113,3 @@
     </div>
   <% end %>
 <% end %>
-
-<% if logged_in? %>
-  <div class="new-comment">
-    <h1>Make a comment</h1>
-    <div class="input-list">
-      <%= render 'form_comment', comment: @comment %>
-    </div>
-  </div>
-<% end %>
-
-
-
-<% if logged_in? && (creator_user?(@raffle) || current_user.admin?) %>
-<%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
-  <%= link_to 'Edit', edit_raffle_path(@raffle) %> |
-  <%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %> |
-<% else %>
-<%= link_to 'Bought numbers', raffle_numbers_path(@raffle) %>|
-<%= link_to 'Buy a number', raffle_numbers_path(@raffle.id), method: :create, data: { confirm: 'Are you sure?'} %> |
-<% end %>
-<%= link_to 'Back', raffles_path %>

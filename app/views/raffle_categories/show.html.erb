@@ -1,14 +1,42 @@
+<% provide(:title, @raffle_category.name)%>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @raffle_category.name %>
-</p>
+<div class="raffle-info">
+  <h1>
+    <%= @raffle_category.name %>
+  </h1>
+  <p>
+    <strong>Description:</strong>
+    <br>
+    <%= @raffle_category.description %>
+  </p>
+  <% if logged_in? && current_user.admin? %>
+  <div class="raffle-buttons">
+    <%= link_to 'Edit', edit_raffle_category_path(@raffle_category), class:"normal-button" %>
+  </div>
+  <% end %>
+</div>
+<h2 class="center">
+  Raffles
+</h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @raffle_category.description %>
-</p>
-
-<%= link_to 'Edit', edit_raffle_category_path(@raffle_category) %> |
-<%= link_to 'Back', raffle_categories_path %>
+<% if !@raffle_category.raffles.blank? %>
+  <% for raffle in @raffle_category.raffles %>
+    <div class="raffle-info">
+      <h3>
+        <%= raffle.name %>
+      </h3>
+      <p>
+        <strong>Description:</strong>
+        <br>
+        <%= raffle.description %>
+      </p>
+      <div class="raffle-buttons">
+        <%= link_to 'Show', raffle_path(raffle), class:"normal-button" %>
+        <% if logged_in? && current_user?(raffle.user) %>
+        <%= link_to 'Edit', edit_raffle_path(raffle), class:"normal-button" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

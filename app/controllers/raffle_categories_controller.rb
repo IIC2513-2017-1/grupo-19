@@ -1,5 +1,6 @@
 class RaffleCategoriesController < ApplicationController
   before_action :set_raffle_category, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:new, :create,  :edit, :update, :destroy]
 
   # GET /raffle_categories
   # GET /raffle_categories.json
@@ -65,6 +66,10 @@ class RaffleCategoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_raffle_category
       @raffle_category = RaffleCategory.find(params[:id])
+    end
+
+    def admin_user
+      redirect_to(root_url) unless (logged_in? && current_user.admin?)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

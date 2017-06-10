@@ -21,13 +21,13 @@
         <ul>
           <% if !@raffle_categories.blank? %>
           <% for raffle_category in @raffle_categories %>
-          <li><%= link_to raffle_category.name, "#"%></li>
+          <li><%= link_to raffle_category.name, raffle_category %></li>
           <% end %>
           <% end %>
         </ul>
       </div>
       <% if logged_in? && current_user.admin?%>
-        <%= link_to "Add raffle category", "#", class:"normal-button" %>
+        <%= link_to "Add raffle category", new_raffle_category_path , class:"normal-button" %>
       <% end %>
     </div>
     <div id="prize_categories" class="">
@@ -46,9 +46,31 @@
       <% end %>
     </div>
   </div>
+  <hr>
   <div id="random-raffle"class="">
     <h2>
       Random Raffle
     </h2>
+    <% if !Raffle.all.blank? %>
+      <% random_raffle = Raffle.all.sample %>
+      <div class="raffle-info">
+        <h3>
+          <%= random_raffle.name %>
+        </h3>
+        <p>
+          <strong>
+            Description:
+          </strong>
+          <br>
+          <%= random_raffle.description %>
+        </p>
+        <div class="raffle-buttons">
+          <%= link_to 'Show', raffle_path(random_raffle), class:"normal-button"%>
+        </div>
+      </div>
+    <% else %>
+
+    <% end %>
+
   </div>
 </div>

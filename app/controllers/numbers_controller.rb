@@ -8,8 +8,7 @@ class NumbersController < ApplicationController
   # GET /numbers
   # GET /numbers.json
   def index
-    @numbers = Number.where("raffle_id = #{params[:raffle_id]}")
-    #@numbers = Number.find_by(raffle_id: params[:raffle_id])
+    @numbers = @raffle.numbers
   end
 
   # POST /numbers

@@ -2,9 +2,18 @@
 <div class="form">
   <div class="form-window">
     <h1>New Comment</h1>
+
+      <div class="answered">
+        Write an answer for <%= @answered.user.name %>, who said:
+        <p class="comment-content">
+          <%= @answered.content %>
+        </p>
+      </div>
+
       <div class="input-list">
         <%= render 'form', answer: @comment, answered: @answered %>
       </div>
+
     <%= link_to 'Back', raffle_path(id: params[:raffle_id]) %>
   </div>
 </div>
