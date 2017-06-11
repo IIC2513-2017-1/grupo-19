@@ -62,6 +62,13 @@ class RafflesController < ApplicationController
     @raffle.collected_money = 0
     respond_to do |format|
       if @raffle.save
+        for follower in @raffle.user.followers
+          notification = Notification.new()
+          notification.content = "#{@raffle.user.name} just released the raffle #{@raffle.name}"
+          notification.user_id = follower.id
+          notification.raffle_id = @raffle.id
+          notification.save
+        end
         format.html { redirect_to @raffle, notice: 'Raffle was successfully created.' }
         format.json { render :show, status: :created, location: @raffle }
       else
@@ -76,6 +83,13 @@ class RafflesController < ApplicationController
   def update
     respond_to do |format|
       if @raffle.update(raffle_params)
+        for follower in @raffle.user.followers
+          notification = Notification.new()
+          notification.content = "#{@raffle.user.name} just edited the raffle #{@raffle.name}"
+          notification.user_id = follower.id
+          notification.raffle_id = @raffle.id
+          notification.save
+        end
         format.html { redirect_to @raffle, notice: 'Raffle was successfully updated.' }
         format.json { render :show, status: :ok, location: @raffle }
       else

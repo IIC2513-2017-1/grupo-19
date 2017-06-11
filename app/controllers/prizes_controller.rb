@@ -42,6 +42,14 @@ class PrizesController < ApplicationController
     if owner_user?
       respond_to do |format|
         if @prize.save
+
+            for follower in @prize.raffle.user.followers
+              notification = Notification.new()
+              notification.content = "#{@prize.raffle.user.name} just added the prize #{@prize.name}, to the raffle #{@prize.raffle.name}"
+              notification.user_id = follower.id
+              notification.raffle_id = @prize.raffle.id
+              notification.save
+            end
           format.html { redirect_to @prize.raffle, notice: 'Prize was successfully created.' }
           format.json { render :show, status: :created, location: @prize }
         else
@@ -59,6 +67,13 @@ class PrizesController < ApplicationController
   def update
     respond_to do |format|
       if @prize.update(prize_params)
+        for follower in @prize.raffle.user.followers
+          notification = Notification.new()
+          notification.content = "#{@prize.raffle.user.name} just changed the prize #{@prize.name}, to the raffle #{@prize.raffle.name}"
+          notification.user_id = follower.id
+          notification.raffle_id = @prize.raffle.id
+          notification.save
+        end
         format.html { redirect_to @prize.raffle, notice: 'Prize was successfully updated.' }
         format.json { render :show, status: :ok, location: @prize }
       else

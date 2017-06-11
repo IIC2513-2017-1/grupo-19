@@ -1,33 +1,20 @@
-<p id="notice"><%= notice %></p>
+<h1 class="center">
+  Notifications
+</h1>
+<% if !@notifications.blank? %>
+  <% for notification in @notifications %>
+    <div class="raffle-info">
+      <p>
+        <%= notification.content %>
+      </p>
+      <br>
+      <div class="raffle-buttons">
+        <%= link_to 'Go to raffle', raffle_path(notification.raffle), class:"normal-button" %>
+        by:
+        <%= link_to notification.raffle.user.name, user_path(notification.raffle.user), class:"normal-button" %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
 
-<h1>Notifications</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User Id</th>
-      <th>Raffle Id</th>
-      <th>Content</th>
-      <th>Seen</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= notification.user_id %></td>
-        <td><%= notification.raffle_id %></td>
-        <td><%= notification.content %></td>
-        <td><%= notification.seen %></td>
-        <td><%= link_to 'Show', notification %></td>
-        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Notification', new_notification_path %>
+<% end %>

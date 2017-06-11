@@ -1,10 +1,11 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only:[:index]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = @user.notifications.reverse
   end
 
   # GET /notifications/1
@@ -62,6 +63,10 @@ class NotificationsController < ApplicationController
   end
 
   private
+    # Finds user
+    def set_user
+      @user = User.find(params[:user_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_notification
       @notification = Notification.find(params[:id])
