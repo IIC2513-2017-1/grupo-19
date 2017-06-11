@@ -36,13 +36,13 @@
         <ul>
           <% if !@prize_categories.blank? %>
           <% for prize_category in @prize_categories %>
-          <li><%= link_to prize_category.name, "#"%></li>
+          <li><%= link_to prize_category.name, prize_category%></li>
           <% end %>
           <% end %>
         </ul>
       </div>
       <% if logged_in? && current_user.admin?%>
-        <%= link_to "Add raffle category", "#", class:"normal-button" %>
+        <%= link_to "Add prize category", new_prize_category_path, class:"normal-button" %>
       <% end %>
     </div>
   </div>

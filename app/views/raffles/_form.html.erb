@@ -33,7 +33,18 @@
 
   <div class="field">
     <li><%= f.label :raffle_category_id %></li>
-    <li><%= f.number_field :raffle_category_id %></li>
+    <li>
+      <select class="" name=raffle[raffle_category_id]>
+        <option value=-1>Select</option>
+        <% if !RaffleCategory.all.blank? %>
+          <% for raffle_category in RaffleCategory.all %>
+            <option value = <%= raffle_category.id %> >
+            <%= raffle_category.name %>
+            </option>
+          <% end %>
+        <% end %>
+      </select>
+    </li>
   </div>
 
   <div class="field">

@@ -46,4 +46,10 @@ module SessionsHelper
   def store_location
     session[:forwarding_url] = request.original_url if request.get?
   end
+
+  # Returns true if the current_user is folluwing user
+  def following?(user)
+    current_user.followings.include?(user)
+  end
+
 end

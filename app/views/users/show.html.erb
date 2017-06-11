@@ -8,6 +8,10 @@
     <% if current_user? @user %>
       <h4><%= link_to "Edit your profile", edit_user_path(current_user) %></h4>
     <% end %>
+    <hr>
+    <p>
+      <%= link_to "Relationships", user_relationships_path(@user) %>
+    </p>
   </div>
   <div class="user-raffles">
     <% if !@user.raffles.blank? %>

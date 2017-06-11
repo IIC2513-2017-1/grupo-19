@@ -1,24 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @prize.name %>
-</p>
+<div class="raffle-info">
+  <p>
+    <strong>Name:</strong>
+    <%= @prize.name %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @prize.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @prize.description %>
+  </p>
 
-<p>
-  <strong>Raffle:</strong>
-  <%= @prize.raffle_id %>
-</p>
+  <p>
+    <strong>Raffle:</strong>
+    <%= link_to @prize.raffle.name, @prize.raffle, class:"normal-button" %>
+  </p>
 
-<p>
-  <strong>Prize category:</strong>
-  <%= @prize.prize_category_id %>
-</p>
+  <p>
+    <strong>Prize category:</strong>
+    <%= link_to @prize.prize_category.name, @prize.prize_category, class:"normal-button" %>
+  </p>
+  <div class="raffle-buttons">
+    <% if logged_in? && @prize.raffle.user == current_user %>
+      <%= link_to 'Edit', edit_raffle_prize_path(@prize, raffle_id:@prize.raffle_id), class:"normal-button" %>
+    <% end %>
 
-<%= link_to 'Edit', edit_prize_path(@prize) %> |
-<%= link_to 'Back', prizes_path %>
+  </div>
+
+</div>

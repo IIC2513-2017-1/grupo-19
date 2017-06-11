@@ -59,7 +59,7 @@ class PrizesController < ApplicationController
   def update
     respond_to do |format|
       if @prize.update(prize_params)
-        format.html { redirect_to @prize, notice: 'Prize was successfully updated.' }
+        format.html { redirect_to @prize.raffle, notice: 'Prize was successfully updated.' }
         format.json { render :show, status: :ok, location: @prize }
       else
         format.html { render :edit }

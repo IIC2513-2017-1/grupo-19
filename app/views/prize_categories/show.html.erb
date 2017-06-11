@@ -1,14 +1,43 @@
 <p id="notice"><%= notice %></p>
+<div class="raffle-info">
+  <h1>
+    <%= @prize_category.name %>
+  </h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @prize_category.name %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <br>
+    <%= @prize_category.description %>
+  </p>
+  <div class="raffle-buttons">
+    <% if logged_in? && current_user.admin? %>
+      <%= link_to 'Edit', edit_prize_category_path(@prize_category), class:"normal-button" %>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @prize_category.description %>
-</p>
+<% if !@prize_category.prizes.blank? %>
+  <h2 class="center">
+    Prizes
+  </h2>
+  <% for prize in @prize_category.prizes %>
+    <div class="raffle-info">
+      <h3>
+        <%= prize.name %>
+      </h3>
+      <p>
+        <strong>
+          Description:
+        </strong>
+        <br>
+        <%= prize.description %>
+      </p>
+      <div class="raffle-buttons">
+        <%= link_to 'show', raffle_prize_path(id:prize.id, raffle_id:prize.raffle_id), class:"normal-button"%>
+        <%= link_to 'show in raffle', raffle_path(id:prize.raffle_id), class:"normal-button"%>
+      </div>
+    </div>
+  <% end %>
+<% else %>
 
-<%= link_to 'Edit', edit_prize_category_path(@prize_category) %> |
-<%= link_to 'Back', prize_categories_path %>
+<% end %>

@@ -3,7 +3,25 @@
 
 <div class="raffle-info">
   <h1><%= @raffle.name %></h1>
-  <h3>by: <%= @raffle.user.name %></h3>
+  <h3>
+    by: <%= @raffle.user.name %>
+    <% if logged_in? %>
+    <% if !following?(@raffle.user) %>
+      <%= link_to 'Follow', user_relationships_path( relationship: { follower_id: current_user.id,
+        followed_id: @raffle.user.id},
+        user_id: current_user.id),
+        method: :create,
+        class:"normal-button"%>
+    <% else %>
+     <% relationship = Relationship.where("follower_id = #{current_user.id} AND followed_id = #{@raffle.user.id}" ).first%>
+      <%= link_to 'Unfollow', user_relationship_path( id: relationship.id,
+        user_id: current_user.id),
+        method: :delete,
+        data: {confirm: "Are you sure?"},
+        class:"normal-button"%>
+    <% end %>
+    <% end %>
+  </h3>
   <p>
     <strong>Description:</strong>
     <%= @raffle.description %>
@@ -14,15 +32,16 @@
   </p>
   <p>
     <strong>Price:</strong>
-    <%= @raffle.price %>
+    $ <%= @raffle.price %>
   </p>
   <p>
     <strong>Raffle category:</strong>
-    <%= @raffle.raffle_category.name %>
+    <%= link_to @raffle.raffle_category.name, raffle_category_path(@raffle.raffle_category),
+                                              class:"normal-button"%>
   </p>
   <p>
     <strong>Collected money:</strong>
-    <%= @raffle.collected_money %>
+    $ <%= @raffle.collected_money %>
   </p>
   <div class="raffle-buttons">
     <% if logged_in? %>
@@ -39,16 +58,44 @@
     <% end %>
 
   </div>
-
-  <%= link_to 'Back', raffles_path %>
 </div>
 
 <h2>Prizes for this raffle</h2>
-<%= link_to 'Add Prize', raffle_prizes_path(@raffle.id) %> |
 
-<% if logged_in? && (creator_user?(@raffle) || current_user.admin?) %>
-<% else %>
+<% if logged_in? && creator_user?(@raffle) %>
+  <%= link_to 'Add Prize', new_raffle_prize_path(@raffle.id),
+                           class:"normal-button"%>
 <% end %>
+<% if !@raffle.prizes.blank? %>
+  <% for prize in @raffle.prizes %>
+    <div class="raffle-info">
+      <p>
+        <strong>
+          <%= prize.name%>
+        </strong>
+      <br><br>
+        <strong>
+          Description:
+        </strong>
+        <br>
+        <%= prize.description %>
+        <br><br>
+        <strong>Category:</strong>
+        <%= link_to prize.prize_category.name, prize.prize_category, class:"normal-button" %>
+      </p>
+      <div class="raffle-buttons">
+        <% if logged_in? && creator_user?(@raffle) %>
+          <%= link_to 'Edit', edit_raffle_prize_path(id:prize.id, raffle_id:prize.raffle.id), class:"normal-button" %>
+        <% end %>
+      </div>
+    </div>
+    <p>
+    </p>
+  <% end %>
+<% else %>
+
+<% end %>
+
 
 <h2>Comments</h2>
 

@@ -2,18 +2,16 @@ Rails.application.routes.draw do
 
   resources :prizes, only: [:index]
   resources :prize_categories
-  resources :notifications
   resources :messages
-  resources :winners
   resources :raffles do
+    resources :winners
     resources :numbers, only: [:index, :create, :destroy]
-    resources :prizes, only: [:index, :new, :create, :edit, :destroy, :show]
+    resources :prizes, only: [:index, :new, :create, :edit, :update, :destroy, :show]
     resources :comments, only: [:create, :edit, :destroy, :show]
     resources :comments do
       resources :comments, only: [:new, :create]
     end
   end
-
   resources :raffle_categories
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
@@ -25,6 +23,8 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   resources :users do
     resources :raffles
+    resources :notifications
+    resources :relationships
   end
   resources :conversations do
     resources :messages

@@ -1,0 +1,33 @@
+<div class="relationships">
+  <div class="followings">
+    <h2>
+      Following
+    </h2>
+    <% if !@user.followings.blank? %>
+      <% for following in @user.followings %>
+      <p>
+          <%= link_to following.name, user_path(following),  class:"normal-button"%>
+      </p>
+      <% end %>
+    <% else %>
+
+    <% end %>
+
+  </div>
+  <div class="followers">
+    <h2>
+      Followers
+    </h2>
+    <% if !@user.followers.blank? %>
+      <% for follower in @user.followers %>
+      <p>
+        <%= link_to follower.name, user_path(follower),  class:"normal-button"%>
+      </p>
+      <% end %>
+    <% else %>
+
+    <% end %>
+
+  </div>
+
+</div>
