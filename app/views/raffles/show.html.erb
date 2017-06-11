@@ -47,7 +47,7 @@
     <% if logged_in? %>
       <% if creator_user?(@raffle) %>
         <%= link_to 'Edit', edit_raffle_path(@raffle), class:"normal-button" %>
-        <!--<%= button_to 'Draw the raffle', raffle_draw_raffle_path(@raffle.id) %>-->
+        <%= button_to 'Draw the raffle', raffle_draw_raffle_path(raffle_id: @raffle.id), class:"button" %>
         <%= link_to 'Bought numbers', raffle_numbers_path(@raffle), class:"normal-button" %>
       <% else %>
         <%= link_to 'Buy a number', raffle_numbers_path(@raffle.id),

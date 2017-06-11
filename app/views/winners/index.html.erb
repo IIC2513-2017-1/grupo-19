@@ -14,16 +14,11 @@
   <tbody>
     <% @winners.each do |winner| %>
       <tr>
-        <td><%= winner.number_id %></td>
-        <td><%= winner.prize_id %></td>
-        <td><%= link_to 'Show', winner %></td>
-        <td><%= link_to 'Edit', edit_winner_path(winner) %></td>
-        <td><%= link_to 'Destroy', winner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= winner.number.user.name %></td>
+        <td><%= winner.prize.name %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Winner', new_winner_path %>

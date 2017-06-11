@@ -2,31 +2,35 @@ class RafflesController < ApplicationController
   before_action :set_raffle, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :creator_user, only: [:edit, :update, :destroy]
+  before_action :verify_date, only: [:draw_raffle]
+  before_action :verify_numbers, only: [:draw_raffle]
   #before_action :admin_user, only: [:destroy]
 
   # GET /raffles
   # GET /raffles.json
 
   def draw_raffle
-    @raffle = Raffle.find(params[:raffle_id])
+    #@raffle = Raffle.find(params[:raffle_id])
     numbers = @raffle.numbers
-    if numbers.length > 0
-      number_id = rand(1 .. numbers.length)
-    else
-      number_id = 1
-    end
-    prize_id = 1;
-    @winner = Winner.create(number_id: number_id, prize_id: prize_id)
+    numbers = numbers.shuffle
+    if !@raffle.prizes.blank?
+      for prize in @raffle.prizes
+        numbers = numbers.shuffle
+        winnernumber = numbers.shift
 
-        respond_to do |format|
-          if @winner.save
-            format.html { redirect_to @winner, notice: 'Winner was successfully created.' }
-            format.json { render :show, status: :created, location: @winner }
-          else
-            format.html { render :new }
-            format.json { render json: @winner.errors, status: :unprocessable_entity }
-          end
-        end
+        winner = Winner.new()
+        winner.number_id = winnernumber.id
+        winner.prize_id = prize.id
+        winner.save
+
+        notification = Notification.new()
+        notification.user_id = winnernumber.user.id
+        notification.raffle_id = @raffle.id
+        notification.content = "Hey #{winnernumber.user.name}!\n You just won a prize, #{prize.name}, for participating in the raffle \"#{@raffle.name}\"."
+        notification.save
+      end
+      redirect_to raffle_winners_path(raffle_id: @raffle.id)
+    end
   end
 
   def index
@@ -110,6 +114,17 @@ class RafflesController < ApplicationController
   end
 
   private
+
+    def verify_date
+      @raffle = Raffle.find(params[:raffle_id])
+      redirect_to :back unless @raffle.final_date < DateTime.now
+    end
+
+    def verify_numbers
+      @raffle = Raffle.find(params[:raffle_id])
+      redirect_to :back unless @raffle.numbers.count > @raffle.prizes.count
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_raffle
       @raffle = Raffle.find(params[:id])

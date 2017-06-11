@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :prize_categories
   resources :messages
   resources :raffles do
+    post '/draw_raffle', to: 'raffles#draw_raffle'
     resources :winners
     resources :numbers, only: [:index, :create, :destroy]
     resources :prizes, only: [:index, :new, :create, :edit, :update, :destroy, :show]
@@ -23,13 +24,10 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   resources :users do
     resources :raffles
-    resources :notifications
+    resources :notifications, only: [:index, :create, :update]
     resources :relationships
   end
   resources :conversations do
     resources :messages
- end
- resources :raffles, :member do
-   post :draw_raffle
- end
+  end
 end
