@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :winners
   resources :raffles do
     resources :numbers, only: [:index, :create, :destroy]
-    resources :prizes, only: [:index, :new, :create, :edit, :destroy, :show]
+    resources :prizes, only: [:index, :new, :create, :edit, :update, :destroy, :show]
     resources :comments, only: [:create, :edit, :destroy, :show]
     resources :comments do
       resources :comments, only: [:new, :create]

@@ -12,21 +12,39 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <li><%= f.label :name %></li>
+    <li><%= f.text_field :name %></li>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+    <li><%= f.label :description %></li>
+    <li><%= f.text_area :description %></li>
   </div>
 
   <div class="field">
-    <%= f.label :prize_category_id %>
-    <%= f.number_field :prize_category_id %>
+    <li><%= f.label :prize_category_id %></li>
+    <li>
+      <select class="" name="prize[prize_category_id]">
+        <option value=-1>Select</option>
+        <% if !PrizeCategory.all.blank? %>
+          <% for prize_category in PrizeCategory.all %>
+          <option value=<%= prize_category.id %>
+            <% if !prize.prize_category_id.blank? && prize.prize_category_id == prize_category.id%>
+              selected="selected"
+            <% end %>
+            >
+            <%= prize_category.name %>
+          </option>
+          <% end %>
+        <% else %>
+
+        <% end %>
+
+      </select>
+    </li>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <li><%= f.submit class:"button"%></li>
   </div>
 <% end %>

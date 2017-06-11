@@ -46,17 +46,44 @@
     <% end %>
 
   </div>
-
-  <%= link_to 'Back', raffles_path %>
 </div>
 
 <h2>Prizes for this raffle</h2>
 
 <% if logged_in? && creator_user?(@raffle) %>
-  <%= link_to 'Add Prize', new_raffle_prizes_path(@raffle.id),
+  <%= link_to 'Add Prize', new_raffle_prize_path(@raffle.id),
                            class:"normal-button"%>
-<% else %>
 <% end %>
+<% if !@raffle.prizes.blank? %>
+  <% for prize in @raffle.prizes %>
+    <div class="raffle-info">
+      <p>
+        <strong>
+          <%= prize.name%>
+        </strong>
+      <br><br>
+        <strong>
+          Description:
+        </strong>
+        <br>
+        <%= prize.description %>
+        <br><br>
+        <strong>Category:</strong>
+        <%= link_to prize.prize_category.name, prize.prize_category, class:"normal-button" %>
+      </p>
+      <div class="raffle-buttons">
+        <% if logged_in? && creator_user?(@raffle) %>
+          <%= link_to 'Edit', edit_raffle_prize_path(id:prize.id, raffle_id:prize.raffle.id), class:"normal-button" %>
+        <% end %>
+      </div>
+    </div>
+    <p>
+    </p>
+  <% end %>
+<% else %>
+
+<% end %>
+
 
 <h2>Comments</h2>
 
