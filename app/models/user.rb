@@ -51,4 +51,7 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
+  def self.search(search)
+  where("name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
+  end
 end

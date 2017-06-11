@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+
+// function changeSearchFrom (event) {
+//   var form = document.getElementById("search-form");
+//   console.log(event);
+// };
+// document.querySelector("#searchbar dropdown").onchange = changeSearchFrom;

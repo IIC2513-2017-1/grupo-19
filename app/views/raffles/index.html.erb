@@ -5,6 +5,7 @@
 <%= will_paginate %>
 
 <div class="">
+  <% if @raffles %>
   <% @raffles.each do |raffle| %>
     <div class="raffle-info">
       <h2><%= raffle.name %></h2>
@@ -26,6 +27,8 @@
       </div>
     </div>
   <% end %>
+  <% end %>
+
 </div>
 
 <%= will_paginate %>

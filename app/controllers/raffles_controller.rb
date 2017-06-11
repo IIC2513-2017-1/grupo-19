@@ -31,7 +31,10 @@ class RafflesController < ApplicationController
 
   def index
     @raffles = Raffle.paginate(page:params[:page], :per_page =>10).all
-
+    if params[:search]
+      @raffles = Raffle.paginate(page:params[:page], :per_page =>10).search(params[:search]).order("created_at DESC")
+    end
+    @raffles
   end
 
   # GET /raffles/1

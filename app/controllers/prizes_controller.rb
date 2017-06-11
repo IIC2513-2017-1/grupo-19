@@ -13,6 +13,8 @@ class PrizesController < ApplicationController
   def index
     if params.has_key?(:raffle_id)
       @prizes = Prize.where("raffle_id = #{params[:raffle_id]}")#Prize.all
+    elsif params[:search]
+        @prizes = Prize.search(params[:search])
     else
       @prizes = Prize.all
     end
