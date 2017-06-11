@@ -6,8 +6,20 @@
   <h3>
     by: <%= @raffle.user.name %>
     <% if logged_in? %>
-      <% store_location %>
-      <%= link_to 'Follow', '#', class:"normal-button"%>
+    <% if !following?(@raffle.user) %>
+      <%= link_to 'Follow', user_relationships_path( relationship: { follower_id: current_user.id,
+        followed_id: @raffle.user.id},
+        user_id: current_user.id),
+        method: :create,
+        class:"normal-button"%>
+    <% else %>
+     <% relationship = Relationship.where("follower_id = #{current_user.id} AND followed_id = #{@raffle.user.id}" ).first%>
+      <%= link_to 'Unfollow', user_relationship_path( id: relationship.id,
+        user_id: current_user.id),
+        method: :delete,
+        data: {confirm: "Are you sure?"},
+        class:"normal-button"%>
+    <% end %>
     <% end %>
   </h3>
   <p>

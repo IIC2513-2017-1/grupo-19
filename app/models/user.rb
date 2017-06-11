@@ -26,7 +26,7 @@ class User < ApplicationRecord
                        source:  :follower
 
   has_many :followings, through: :following_relationships,
-                        source:  :following
+                        source:  :followed
 
   validates :name, presence: true,
                    length: { maximum: 50 }
