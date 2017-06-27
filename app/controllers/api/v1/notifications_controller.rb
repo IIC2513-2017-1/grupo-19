@@ -1,5 +1,5 @@
 module Api::V1
-  class NotificationsController< ApiController
+  class NotificationsController < ApiController
     before_action :authenticate
     before_action :set_raffle
 
@@ -27,12 +27,13 @@ module Api::V1
 
     private
 
-      def set_raffle
-        @raffle = Raffle.find(params[:raffle_id])
-      end
+    def set_raffle
+      @raffle = Raffle.find(params[:raffle_id])
+    end
 
-      def notification_params
-        params.require(:notification).permit(:content, :seen)
-      end
+    def notification_params
+      params.require(:notification).permit(:content, :seen)
+    end
+
   end
 end
