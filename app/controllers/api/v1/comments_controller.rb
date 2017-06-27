@@ -1,5 +1,5 @@
 module Api::V1
-  class CommentsController
+  class CommentsController < ApiController
     before_action :authenticate
     before_action :set_raffle
 
