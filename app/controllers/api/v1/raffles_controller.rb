@@ -17,7 +17,6 @@ module Api::V1
       @raffle = @current_user.raffles.build(raffle_params)
       @raffle.collected_money = 0
       return if @raffle.save
-      render json: {errors: @raffle.errors}, status: :unprocessable_entity
     end
 
     def draw_raffle

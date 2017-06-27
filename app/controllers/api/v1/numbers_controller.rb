@@ -5,7 +5,6 @@ module Api::V1
     def create
       @number = Number.new(number_params)
       return if @number.save
-      return json: {errors: @number.errors}, status: :unprocessable_entity
     end
 
     def index
