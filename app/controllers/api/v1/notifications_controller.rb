@@ -5,7 +5,7 @@ module Api::V1
 
     def create_notifications_for_raffle
       if !@raffle.numbers.blank?
-        for @raffle.numbers do |number|
+        for number in @raffle.numbers do
           notification = Notification.new(notification_params)
           notification.user = number.user
           notification.raffle = @raffle
@@ -16,7 +16,7 @@ module Api::V1
 
     def create_notifications_for_followers
       if !@current_user.followers.blank?
-        for @raffle.followers do |follower|
+        for follwer in @raffle.followers do
           notification = Notification.new(notification_params)
           notification.user = follower
           notification.raffle = @raffle
