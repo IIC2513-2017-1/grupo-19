@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.generate_token_and_save
       WelcomeMailer.welcome_email(@user).deliver_now
       log_in @user
       flash[:success] = "Welcome to Raffle-Mania!"

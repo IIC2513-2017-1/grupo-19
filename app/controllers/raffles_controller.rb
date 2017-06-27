@@ -1,16 +1,11 @@
 class RafflesController < ApplicationController
   before_action :set_raffle, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :creator_user, only: [:edit, :update, :destroy]
+  before_action :creator_user, only: [:edit, :update, :destroy, :draw_raffle]
   before_action :verify_date, only: [:draw_raffle]
   before_action :verify_numbers, only: [:draw_raffle]
-  #before_action :admin_user, only: [:destroy]
-
-  # GET /raffles
-  # GET /raffles.json
 
   def draw_raffle
-    #@raffle = Raffle.find(params[:raffle_id])
     numbers = @raffle.numbers
     numbers = numbers.shuffle
     if !@raffle.prizes.blank?
@@ -41,13 +36,8 @@ class RafflesController < ApplicationController
     @raffles
   end
 
-  # GET /raffles/1
-  # GET /raffles/1.json
   def show
-    @prizes = []
-    @raffle.prizes.each do |prize|
-      @prizes << Prize.find(prize)
-    end
+    @prizes = @raffle.prizes
   end
 
   # GET /raffles/new
@@ -144,7 +134,6 @@ class RafflesController < ApplicationController
     end
 
     def creator_user
-      #@user = User.find_by(id: @raffle.user_id)
       @user = @raffle.user
       redirect_to(root_url) unless (current_user?(@user) || current_user.admin?)
     end

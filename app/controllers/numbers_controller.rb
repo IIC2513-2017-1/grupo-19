@@ -36,6 +36,8 @@ class NumbersController < ApplicationController
   # DELETE /numbers/1.json
   def destroy
     @number.destroy
+    @raffle.collected_money = @raffle.numbers.count * @raffle.price
+    @raffle.save
     respond_to do |format|
       format.html { redirect_to numbers_url, notice: 'Number was successfully destroyed.' }
       format.json { head :no_content }

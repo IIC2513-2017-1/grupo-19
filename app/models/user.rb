@@ -57,4 +57,11 @@ class User < ApplicationRecord
   def self.search(search)
   where("name LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
+
+  def generate_token_and_save
+    loop do
+      self.token = SecureRandom.hex(64)
+      break if save
+    end
+  end
 end
