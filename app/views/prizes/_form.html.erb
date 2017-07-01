@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <li><%= f.label :avatar, class: 'form-control' %></li>
+    <li><%= f.file_field :avatar %></li>
+  </div>
+
+  <div class="field">
     <li><%= f.label :name %></li>
     <li><%= f.text_field :name %></li>
   </div>
