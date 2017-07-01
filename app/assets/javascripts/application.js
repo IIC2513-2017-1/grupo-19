@@ -21,6 +21,7 @@ $(document).on('turbolinks:load', function () {
   $('.search-button').on('click',function () {
     var $searchbar_dropdown = $('#searchbar-dropdown').find(":selected");
     var dd_value = $searchbar_dropdown.attr("value");
+    $('#search-form').attr("action", "");
     $('#search-form').attr("action", dd_value);
   });
 });

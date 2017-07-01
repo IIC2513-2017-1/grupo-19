@@ -5,9 +5,9 @@
   <div class="search-bar-header">
     <%= form_tag(users_path, :method => "get", id:"search-form") do %>
     <select id="searchbar-dropdown">
-      <option value="raffles">Raffle</option>
-      <option value="prizes">Prize</option>
-      <option value="users">User</option>
+      <option value="/raffles">Raffle</option>
+      <option value="/prizes">Prize</option>
+      <option value="/users">User</option>
     </select>
         <!-- <%= form_tag(raffles_path, :method => "get", id: "search-form") do %> -->
           <%= text_field_tag :search, params[:search], placeholder: "Search", id:"sph" %>
