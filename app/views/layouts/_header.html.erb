@@ -3,14 +3,14 @@
     <%= link_to "Raffle-Mania", root_path, id: "logo"%>
   </div>
   <div class="search-bar-header">
-    <%= form_tag(users_path, :method => "get", id: "search-form") do %>
-    <select class="searchbar dropdown">
-      <option value="0">Raffle</option>
-      <option value="1">Prize</option>
-      <option value="3">User</option>
+    <%= form_tag(users_path, :method => "get", id:"search-form") do %>
+    <select id="searchbar-dropdown">
+      <option value="raffles">Raffle</option>
+      <option value="prizes">Prize</option>
+      <option value="users">User</option>
     </select>
         <!-- <%= form_tag(raffles_path, :method => "get", id: "search-form") do %> -->
-          <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search", id:"sph" %>
           <%= submit_tag "Search", :name => nil , class: "search-button"%>
         <!-- <% end %> -->
     <% end %>
