@@ -107,7 +107,7 @@ class PrizesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prize_params
-      params.require(:prize).permit(:name, :description, :raffle_id, :prize_category_id)
+      params.require(:prize).permit(:name, :description, :raffle_id, :prize_category_id, :avatar)
     end
 
     def owner_user?

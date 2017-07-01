@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <div class="raffle-info">
+
+  <%= image_tag @prize.avatar.url(:medium) %>
   <p>
     <strong>Name:</strong>
     <%= @prize.name %>
