@@ -436,8 +436,9 @@ div.profile-content {
     height: 70%;
     display: block;
     text-align: center;
-    img.gravatar{
-
+    img{
+      margin-top: 2%;
+      border: 1px solid #000;
     }
     h2, h3{
       text-align: left;

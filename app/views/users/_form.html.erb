@@ -1,6 +1,9 @@
 <%= form_for(@user) do |f| %>
   <p><%= render 'shared/error_messages' %></p>
 
+  <li><%= f.label :avatar, class: 'form-control' %></li>
+  <li><%= f.file_field :avatar %></li>
+
   <li><%= f.label :name, class: 'form-control' %></li>
   <li><%= f.text_field :name %></li>
 

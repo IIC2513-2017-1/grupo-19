@@ -34,6 +34,9 @@ class User < ApplicationRecord
   has_many :followings_users, class_name: "User", through: "following_relationships"
   has_many :follower_users, class_name: "User", through: "following_relationships"
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
 
   before_save { email.downcase! }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
