@@ -51,9 +51,9 @@
         <%= link_to 'Bought numbers', raffle_numbers_path(@raffle), class:"normal-button" %>
       <% else %>
         <%= link_to 'Buy a number', raffle_numbers_path(@raffle.id),
-                                    method: :create,
-                                    data: { confirm: 'Are you sure?'},
-                                    class:"normal-button" %>
+                                    method: :POST,
+                                    data: { confirm: 'Are you sure?', type: :html},
+                                    class:"normal-button", remote: true, id:"new-number"%>
       <% end %>
     <% end %>
 

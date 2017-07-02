@@ -20,7 +20,13 @@ class NumbersController < ApplicationController
         if @number.save
           @raffle.collected_money = @raffle.numbers.count * @raffle.price
           @raffle.save
-          format.html { redirect_to raffle_numbers_url, notice: 'Number was successfully created.' }
+          format.html do
+            if request.xhr?
+              render partial: 'created_successfully'
+            else
+              redirect_to raffle_numbers_url, notice: 'Trojan was successfully created.'
+            end
+          end
           format.json { render :index, status: :created, location: @number }
         else
           format.html { render :new }

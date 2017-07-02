@@ -25,3 +25,10 @@ $(document).on('turbolinks:load', function () {
     $('#search-form').attr("action", dd_value);
   });
 });
+
+$(document).on('turbolinks:load', function () {
+  $('#new-number')
+    .on('ajax:success', function (event, data) {
+      $('#new-number').html(data);
+    });
+});
