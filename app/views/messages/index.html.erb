@@ -23,11 +23,11 @@
 
 <%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
  <div class="field">
-   <%= f.text_area :content, class: "form-control" %>
+   <%= f.text_area :content, class: "form-control", id:'comment-text'%>
  </div>
  <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
  <div>
-   <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
+   <%= f.submit "Add Reply", class: "ui blue labeled submit icon button", id:'reply-button' %>
  </div>
 
 <% end %>

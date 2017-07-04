@@ -172,6 +172,10 @@ div.raffle-info{
   }
 }
 
+div #comment-text, #reply-button {
+  width: 90%;
+  margin-left: 0;
+}
 div.comment {
   border: 3px solid $sky-blue;
   border-radius: 8px;
