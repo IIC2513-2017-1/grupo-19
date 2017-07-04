@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
-    <li><%= f.submit class:"button" %></li>
+    <li><%= f.submit class:"button" ,
+    remote: true,
+    data: {
+      type: 'json',
+      'user-id':current_user.id
+    }%></li>
   </div>
 <% end %>

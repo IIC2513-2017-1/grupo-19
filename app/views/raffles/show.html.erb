@@ -123,20 +123,19 @@
     </div>
   <% end %>
 
-
-
-<% if !@raffle.comments.blank? %>
-  <% comments_of_raffle = @raffle.comments.sort_by(&:created_at).reverse %>
-  <% for comment in  comments_of_raffle %>
+  <div id="comments">
+    <% if !@raffle.comments.blank? %>
+    <% comments_of_raffle = @raffle.comments.sort_by(&:created_at).reverse %>
+    <% for comment in  comments_of_raffle %>
     <div class="comment">
       <div class="comment-content">
         <h4><%=comment.user.name%> said:</h4>
         <% if !comment.answered.blank? %>
-          <p class="comment-content">
-            <strong>As an answer for what <%=comment.answered.user.name%> said:</strong>
-            <br><br>
-            <%= comment.answered.content%>
-          </p>
+        <p class="comment-content">
+          <strong>As an answer for what <%=comment.answered.user.name%> said:</strong>
+          <br><br>
+          <%= comment.answered.content%>
+        </p>
         <% end %>
         <p><%= comment.content%></p>
       </div>
@@ -144,35 +143,40 @@
       <% if logged_in? %>
       <div class="">
         <% if current_user?(comment.user) %>
-          <%= link_to 'Edit', edit_raffle_comment_path(id: comment.id,
-                                                       raffle_id: @raffle.id),
-                              class:"normal-button"%>
-          <%= link_to 'Destroy', raffle_comment_path(id: comment.id,
-                                                     raffle_id: @raffle.id),
-                                 method: :delete,
-                                 data: { confirm: 'Are you sure?' },
-                                 class:"normal-button" %>
+        <%= link_to 'Edit', edit_raffle_comment_path(id: comment.id,
+        raffle_id: @raffle.id),
+        class:"normal-button"%>
+        <%= link_to 'Destroy', raffle_comment_path(id: comment.id,
+        raffle_id: @raffle.id),
+        method: :delete,
+        data: { confirm: 'Are you sure?' },
+        class:"normal-button" %>
         <% else %>
-          <%= link_to 'Answer', new_raffle_comment_comment_path(comment_id: comment.id,
-                              raffle_id: @raffle.id),
-                              class:"normal-button"%>
+        <%= link_to 'Answer', new_raffle_comment_comment_path(comment_id: comment.id,
+        raffle_id: @raffle.id),
+        class:"normal-button"%>
         <% end %>
 
       </div>
       <% end %>
       <% if !comment.answers.blank? %>
-        <p><strong>Answers:</strong></p>
-          <div class="answers">
-            <% for answer in comment.answers %>
-              <p class="comment-content"><strong><%= answer.user.name%> answered:</strong>
-                <br><br>
-              <%= answer.content%></p>
-            <% end %>
-          </div>
+      <p><strong>Answers:</strong></p>
+      <div class="answers">
+        <% for answer in comment.answers %>
+        <p class="comment-content"><strong><%= answer.user.name%> answered:</strong>
+          <br><br>
+          <%= answer.content%></p>
+          <% end %>
+        </div>
+        <% end %>
+
+      </div>
+      <% end %>
       <% end %>
 
-    </div>
-  <% end %>
-<% end %>
+  </div>
+
+
+
 
 </div>
