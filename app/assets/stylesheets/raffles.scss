@@ -1,3 +1,45 @@
 // Place all the styles related to the Raffles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$prussian-blue: #0B3C5D;
+$sky-blue: #328CC1;
+$gold-leaf: #D9B310;
+$ivory-black: #1D2731;
+
+div.section {
+  border: 3px solid $gold-leaf;
+  padding: 3px;
+  background-color: $sky-blue;
+  color: $ivory-black;
+  border-radius: 8px;
+}
+
+h3 {
+  padding: 3px;
+}
+
+div#prizes-section{
+  display: none;
+}
+
+div#comments-section{
+  display: none;
+}
+
+div#user-info{
+
+}
+
+img.circle{
+  border-radius: 1000px;
+}
+
+a.raffle-tab {
+  border: 3px solid $gold-leaf;
+  background-color: $gold-leaf;
+  color: $ivory-black;
+  padding: 3px;
+  margin-right: 1px;
+}

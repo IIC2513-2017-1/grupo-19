@@ -44,8 +44,11 @@ class CommentsController < ApplicationController
           @response = Response.new(responded_id: params[:comment_id], response_id: @comment.id)
           @response.save
         end
-        format.html { redirect_to raffle_path(id: @comment.raffle_id), notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+        respond_to do |format|
+          format.html { redirect_to raffle_path(id: @comment.raffle_id), notice: 'Comment was successfully created.' }
+          format.json { render :show, status: :created, location: @comment }
+
+        end
       else
         format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

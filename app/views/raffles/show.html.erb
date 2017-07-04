@@ -1,27 +1,50 @@
 <% provide(:title, @raffle.name)%>
 <p id="notice"><%= notice %></p>
 
-<div class="raffle-info">
-  <h1><%= @raffle.name %></h1>
-  <h3>
-    by: <%= @raffle.user.name %>
-    <% if logged_in? %>
-    <% if !following?(@raffle.user) %>
-      <%= link_to 'Follow', user_relationships_path( relationship: { follower_id: current_user.id,
-        followed_id: @raffle.user.id},
-        user_id: current_user.id),
-        method: :create,
-        class:"normal-button"%>
-    <% else %>
-     <% relationship = Relationship.where("follower_id = #{current_user.id} AND followed_id = #{@raffle.user.id}" ).first%>
-      <%= link_to 'Unfollow', user_relationship_path( id: relationship.id,
-        user_id: current_user.id),
-        method: :delete,
-        data: {confirm: "Are you sure?"},
-        class:"normal-button"%>
-    <% end %>
-    <% end %>
-  </h3>
+<h1 class="center">
+  <%= @raffle.name %>
+</h1>
+
+<div class="raffle-tab-section">
+  <button class="raffle-tab" id="info-tab">Information</button>
+  <button class="raffle-tab", id="prizes-tab">Prizes</button>
+  <button class="raffle-tab" id="comments-tab">Comments</button>
+</div>
+
+<div id="information-section" class="section">
+  <div id="user-info">
+    <td><%= image_tag @raffle.user.avatar.url(:thumb), size:"50x50", class:"circle" %> </td>
+    <td><%= @raffle.user.name %></td>
+    <td>
+      <% if logged_in? %>
+      <% if !following?(@raffle.user) %>
+        <%= link_to 'Follow',
+          user_relationships_path( relationship: { follower_id: current_user.id,
+                                                   followed_id: @raffle.user.id },
+                                   user_id: current_user.id),
+                                   method: :post,
+                                   class:"normal-button follow-button",
+                                   remote: true,
+                                   data: {
+                                     type: 'json',
+                                     'user-id':@raffle.user.id
+                                   }%>
+      <% else %>
+       <% relationship = Relationship.where("follower_id = #{current_user.id} AND followed_id = #{@raffle.user.id}" ).first%>
+        <%= link_to 'Unfollow', user_relationship_path( id: relationship.id,
+          user_id: current_user.id),
+          method: :delete,
+          data: {confirm: "Are you sure?"},
+          class:"normal-button",
+          remote: true,
+          data: {
+            type: 'json',
+            'user-id':@raffle.user.id
+          }%>
+      <% end %>
+      <% end %>
+    </td>
+  </div>
   <p>
     <strong>Description:</strong>
     <%= @raffle.description %>
@@ -47,7 +70,7 @@
     <% if logged_in? %>
       <% if creator_user?(@raffle) %>
         <%= link_to 'Edit', edit_raffle_path(@raffle), class:"normal-button" %>
-        <%= button_to 'Draw the raffle', raffle_draw_raffle_path(raffle_id: @raffle.id), class:"button" %>
+        <%= link_to 'Draw the raffle', raffle_draw_raffle_path(raffle_id: @raffle.id), class:"normal-button" %>
         <%= link_to 'Bought numbers', raffle_numbers_path(@raffle), class:"normal-button" %>
       <% else %>
         <%= link_to 'Buy a number', raffle_numbers_path(@raffle.id),
@@ -60,54 +83,45 @@
   </div>
 </div>
 
-<h2>Prizes for this raffle</h2>
+<div id="prizes-section" class="section">
+  <h3 class="center">
+    Prizes for this raffle
+  </h3>
+  <h3 class="center">
+    <% if logged_in? && creator_user?(@raffle) %>
+    <%= link_to 'Add Prize', new_raffle_prize_path(@raffle.id),
+    class:"normal-button"%>
+    <% end %>
+  </h3>
 
-<% if logged_in? && creator_user?(@raffle) %>
-  <%= link_to 'Add Prize', new_raffle_prize_path(@raffle.id),
-                           class:"normal-button"%>
-<% end %>
-<% if !@raffle.prizes.blank? %>
-  <% for prize in @raffle.prizes %>
-    <div class="raffle-info">
-      <p>
-        <strong>
-          <%= prize.name%>
-        </strong>
-      <br><br>
-        <strong>
-          Description:
-        </strong>
-        <br>
-        <%= prize.description %>
-        <br><br>
-        <strong>Category:</strong>
-        <%= link_to prize.prize_category.name, prize.prize_category, class:"normal-button" %>
-      </p>
-      <div class="raffle-buttons">
-        <% if logged_in? && creator_user?(@raffle) %>
-          <%= link_to 'Edit', edit_raffle_prize_path(id:prize.id, raffle_id:prize.raffle.id), class:"normal-button" %>
-        <% end %>
+  <% if !@raffle.prizes.blank? %>
+    <%= render @raffle.prizes %>
+  <% else %>
+    <% if logged_in? && creator_user?(@raffle) %>
+      You haven't added any prize for this raffle!
+    <% else %>
+      This raffle doesn't have prizes yet!
+    <% end %>
+  <% end %>
+
+
+
+</div>
+
+<div id="comments-section" class="section">
+  <h2 class="center">
+    Comments
+  </h2>
+
+
+  <% if logged_in? %>
+    <div class="new-comment">
+      <h5>Make a comment</h5>
+      <div class="input-list">
+        <%= render 'form_comment', comment: @comment %>
       </div>
     </div>
-    <p>
-    </p>
   <% end %>
-<% else %>
-
-<% end %>
-
-
-<h2>Comments</h2>
-
-
-<% if logged_in? %>
-  <div class="new-comment">
-    <h1>Make a comment</h1>
-    <div class="input-list">
-      <%= render 'form_comment', comment: @comment %>
-    </div>
-  </div>
-<% end %>
 
 
 
@@ -160,3 +174,5 @@
     </div>
   <% end %>
 <% end %>
+
+</div>

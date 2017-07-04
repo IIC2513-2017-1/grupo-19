@@ -9,14 +9,37 @@ class RelationshipsController < ApplicationController
   def create
     @relationship = Relationship.new(relationship_params)
     if @relationship.save
-      redirect_to :back
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json do
+          render json: {
+            following:{
+              id: @relationship.follower_id
+            },
+            follow: {
+              id: @relationship.id
+            }
+          }
+        end
+      end
     end
 
   end
 
   def destroy
-    Relationship.find(params[:id]).destroy
-    redirect_to :back
+    follow = Relationship.find(params[:id])
+    follow.destroy
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json do
+        render json: {
+          unfollowing:{
+            user_id: follow.follower_id,
+            followed_id: follow.followed_id
+          }
+        }
+      end
+    end
   end
 
   private

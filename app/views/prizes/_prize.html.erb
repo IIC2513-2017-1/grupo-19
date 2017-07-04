@@ -1,0 +1,25 @@
+<div class="prize-full-description">
+  <div class="prize-image">
+    <%= image_tag prize.avatar.url(:thumb), size:"150x150" %>
+  </div>
+  <div class="prize-description">
+    <strong>
+      <%= prize.name %>
+      <% if logged_in? && creator_user?(@raffle) %>
+        <%= link_to 'Edit', edit_raffle_prize_path(id:prize.id, raffle_id:prize.raffle.id), class:"normal-button" %>
+      <% end %>
+
+    </strong>
+    <p>
+      <strong>
+        Description:
+      </strong>
+    </p>
+    <p>
+      <%= prize.description %>
+    </p>
+    <strong>Category:</strong>  <%= link_to prize.prize_category.name, prize.prize_category, class:"normal-button" %>
+
+
+  </div>
+</div>
